@@ -1,0 +1,38 @@
+@import "/styles/base";
+
+.banner_main {
+    width: 100%;
+    // background-color: #efe5db;
+    position: relative;
+
+    .banner_container {
+        height: 100dvh;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        position: relative;
+        z-index: 1;
+
+        .left_sec {
+            width: 50%;
+
+
+            h2 {
+                color: var(--color4);
+
+                font-size: 60px;
+            }
+        }
+
+        .image_sec {
+            height: auto;
+            width: 45%;
+            max-width: 560px;
+            aspect-ratio: 1/1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    }
+}

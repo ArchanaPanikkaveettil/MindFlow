@@ -1,0 +1,257 @@
+.sessionCard {
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    padding: 40px;
+    margin: 0 auto;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.title {
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-bottom: 30px;
+}
+
+.counselorOptions {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+
+.optionCard {
+    background: var(--color2);
+    border: 2px solid transparent;
+    border-radius: 16px;
+    padding: 20px;
+    width: 260px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    color: #ffffff;
+
+    p {
+        font-weight: 500;
+        margin: 0;
+    }
+
+    &:hover {
+        box-shadow: 0 0 5px var(--color4);
+    }
+}
+
+.active {
+    border-color: #7b5cf5;
+    background: var(--color4);
+    color: white;
+}
+
+.dateTimeSection {
+    margin-top: 20px;
+    text-align: left;
+
+    h3 {
+        font-size: 1.2rem;
+        font-weight: 600;
+        margin-bottom: 15px;
+        text-align: center;
+    }
+}
+
+.calendar {
+    border: 1px solid #eee;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 25px;
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.calendarHeader {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    justify-content: center;
+}
+
+.datesGrid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 10px;
+    justify-items: center;
+}
+
+.dateBox {
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    border-radius: 8px;
+    background: #f7f7f7;
+    color: #bbb;
+    cursor: not-allowed;
+    transition: all 0.2s ease;
+}
+
+.available {
+    background: #f0f0ff;
+    color: #333;
+    cursor: pointer;
+
+    &:hover {
+        background: #e1d8ff;
+    }
+}
+
+.selected {
+    background: #7b5cf5;
+    color: #fff;
+    font-weight: 600;
+}
+
+.timeSlots {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+}
+
+.timeButton {
+    background: #f5f5f5;
+    border: 1px solid transparent;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.2s ease;
+
+    &:hover {
+        background: #ece8ff;
+    }
+}
+
+.selectedTime {
+    background-color: var(--color4);
+    color: #fff;
+
+    &:hover {
+        color: black;
+    }
+}
+
+.bookButton {
+
+
+    &:disabled {
+        cursor: not-allowed;
+    }
+}
+
+.datePickerContainer {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+
+    // Hides the default input field since we are using 'inline'
+    .react-datepicker-wrapper {
+        display: none;
+    }
+}
+
+// Custom Calendar Class
+.customCalendar {
+    border: none !important; // Remove default border
+    border-radius: 12px;
+    background-color: transparent !important; // Remove default background
+    width: 100%; // Make it fill the parent container
+    margin-left: auto;
+    margin-right: auto;
+
+    :global {
+        .react-datepicker {
+            &__header {
+                background-color: transparent;
+                border-bottom: none;
+                padding-top: 0;
+                width: 100%;
+            }
+
+            &__week,
+            &__day-names {
+                text-align: center;
+
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            &__day,
+            &__day-name {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: auto;
+                width: calc(100%/7);
+                aspect-ratio: 1/1;
+                color: var(--color4);
+                font-size: 16px;
+
+            }
+
+            &__current-month {
+                font-size: 2rem;
+                color: var(--color4);
+            }
+
+            &__day--disabled,
+            &__month-text--disabled,
+            &__quarter-text--disabled,
+            &__year-text--disabled {
+
+                color: rgb(182, 182, 182);
+            }
+
+            &__month-container {
+                width: 100%;
+                float: unset;
+            }
+
+            &__day:not([aria-disabled=true]):hover,
+            &__month-text:not([aria-disabled=true]):hover,
+            &__quarter-text:not([aria-disabled=true]):hover,
+            &__year-text:not([aria-disabled=true]):hover {
+                border-radius: 50%;
+                background-color: var(--color2);
+                color: white;
+            }
+
+            &__day--selected,
+            &__day--in-selecting-range,
+            &__day--in-range,
+            &__month-text--selected,
+            &__month-text--in-selecting-range,
+            &__month-text--in-range,
+            &__quarter-text--selected,
+            &__quarter-text--in-selecting-range,
+            &__quarter-text--in-range,
+            &__year-text--selected,
+            &__year-text--in-selecting-range,
+            &__year-text--in-range {
+                border-radius: 50%;
+                background-color: var(--color4);
+                color: white;
+
+
+            }
+        }
+    }
+}

@@ -1,0 +1,81 @@
+// Base size for rem calculation
+$base-size: 16px;
+
+// Media Queries
+@mixin min($breakpoint, $property: width) {
+  @media screen and (min-#{$property}: #{$breakpoint}px) {
+    @content;
+  }
+}
+
+@mixin max($breakpoint, $property: width) {
+  @media screen and (max-#{$property}: #{$breakpoint}px) {
+    @content;
+  }
+}
+
+@mixin min-max($bp-min, $bp-max, $prop-min: width, $prop-max: $prop-min) {
+  @media screen and (min-#{$prop-min}: #{$bp-min}px) and (max-#{$prop-max}: #{$bp-max}px) {
+    @content;
+  }
+}
+
+@mixin touchDevices {
+  @media (hover: none) {
+    @content;
+  }
+}
+
+@mixin noTouchDevices {
+  @media (hover: hover) {
+    @content;
+  }
+}
+
+// Line Height
+@mixin lineHeight($font, $line) {
+  line-height: calc($line / $font);
+}
+
+// Line Clamp
+@mixin lineClamp($lines) {
+  display: -webkit-box;
+  -webkit-line-clamp: $lines;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+// Aspect Ratio
+@mixin aspectRatio($w, $h) {
+  position: relative;
+
+  img,
+  video,
+  iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: contain;
+    max-width: 100%;
+    max-height: 100%;
+  }
+
+  &::after {
+    content: "";
+    display: block;
+    height: 0;
+    width: 100%;
+    padding-bottom: calc(($h / $w) * 100%);
+  }
+}
+
+@mixin px-rem($pxValue, $property: "font-size", $standard-size: 16) {
+  #{$property}: #{$pxValue / $standard-size}rem;
+}
+
+@function size($target, $context: $base-size) {
+  @return ($target / $context) * 1rem;
+}

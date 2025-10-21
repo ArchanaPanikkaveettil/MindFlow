@@ -1,0 +1,137 @@
+// components/CounselorDashboard/CounselorDashboard.module.scss
+@import '/styles/base';
+
+.header {
+    text-align: center;
+    margin-bottom: 3rem;
+
+    .title {
+        font-size: 2.5rem;
+        font-weight: 600;
+        color: var(--color4);
+        margin-bottom: 0.5rem;
+    }
+
+    .errorMessage {
+        color: red;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+        margin-top: 1rem;
+        font-weight: 500;
+    }
+}
+
+.grid {
+    display: grid;
+    // REVISED: Links on the left (1fr), Sessions on the right (2fr)
+    grid-template-areas:
+        "links sessions sessions";
+    grid-template-columns: 1fr 2fr; 
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+
+    @include max(1024) {
+        // Fallback to single column layout for small screens
+        grid-template-areas:
+            "links"
+            "sessions";
+        grid-template-columns: 1fr;
+    }
+}
+
+.sectionTitle {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--color2);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+// ----------------- Quick Links -----------------
+.quickLinks {
+    grid-area: links;
+    padding: 2rem;
+    background-color: var(--color3);
+    border-radius: 1rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+
+    .linkWrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .linkCard {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        padding: 1rem;
+        background-color: white;
+        border-radius: 0.75rem;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        transition: all 0.3s ease;
+        color: var(--color4);
+        font-weight: 500;
+
+        &:hover {
+            background-color: rgba(239, 187, 207, 0.125);
+            transform: translateY(-2px);
+            color: var(--color2);
+        }
+
+        svg {
+            color: var(--color1);
+            flex-shrink: 0;
+        }
+    }
+}
+
+// ----------------- Low Mood Alerts -----------------
+// REMOVED: .alertsSection block
+
+// ----------------- Upcoming Sessions -----------------
+.sessionsSection {
+    grid-area: sessions; // Assign to the sessions area
+    padding: 2rem;
+    background-color: rgba(164, 133, 226, 0.1); /* Light version of color2 */
+    border-radius: 1rem;
+    border: 1px solid var(--color2);
+
+    .sessionCard {
+        background-color: white;
+        padding: 1rem;
+        border-radius: 0.75rem;
+        margin-bottom: 10px;
+        border-left: 5px solid var(--color2);
+        color: var(--color4);
+
+        .sessionTime {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            font-size: 0.95rem;
+            color: var(--color2);
+        }
+
+        .studentName {
+            margin: 0;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            opacity: 0.9;
+        }
+    }
+}
+
+.empty {
+    padding: 1rem;
+    text-align: center;
+    opacity: 0.7;
+    font-style: italic;
+}

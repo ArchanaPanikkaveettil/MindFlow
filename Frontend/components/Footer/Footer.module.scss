@@ -1,0 +1,41 @@
+.footer {
+    background-color: var(--color4);
+    color: var(--color3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.footerContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+ 
+
+.logo {
+    width: 150px;
+    height: auto;
+    filter: brightness(50) invert(0) contrast(10);
+}
+
+ 
+.copyText {
+    font-size: 0.875rem;
+    opacity: 0.9;
+    color: var(--color3);
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    .brandName {
+        font-size: 1.1rem;
+    }
+
+    .copyText {
+        font-size: 0.75rem;
+    }
+}

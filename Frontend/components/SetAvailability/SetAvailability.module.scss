@@ -1,0 +1,155 @@
+// components/SetAvailability/SetAvailability.module.scss
+@import '/styles/base';
+
+.availabilityCard {
+    max-width: 900px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 1.5rem;
+    padding: 2rem 3rem;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.title {
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--color2);
+    margin-bottom: 0.5rem;
+}
+
+.subtitle {
+    color: var(--color4);
+    margin-bottom: 2rem;
+    opacity: 0.8;
+}
+
+.section {
+    margin-bottom: 2.5rem;
+    padding: 1.5rem;
+    background-color: var(--color3);
+    border-radius: 1rem;
+}
+
+.sectionTitle {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--color4);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.datePickerWrapper {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+// Custom DatePicker Styling
+.customCalendar {
+    border: none !important;
+    background-color: transparent !important;
+    
+    :global {
+        .react-datepicker {
+            &__day-name, &__day {
+                color: var(--color4);
+                font-size: 16px;
+            }
+
+            &__month-container {
+                width: 100%;
+                float: unset;
+            }
+
+            &__day:not([aria-disabled=true]):hover {
+                border-radius: 50%;
+                background-color: rgba(164, 133, 226, 0.2);
+            }
+
+            &__day--selected {
+                border-radius: 50%;
+                background-color: var(--color2) !important;
+                color: white !important;
+            }
+
+            &__header {
+                background-color: transparent;
+                border-bottom: 1px solid rgba(164, 133, 226, 0.2);
+            }
+        }
+    }
+}
+
+.timeSlotsGrid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+}
+
+.timeSlot {
+    background: white;
+    border: 2px solid var(--color2);
+    color: var(--color2);
+    padding: 0.75rem 1.5rem;
+    border-radius: 2rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:hover {
+        background-color: var(--color2);
+        color: white;
+    }
+
+    &.selected {
+        background-color: var(--color1);
+        border-color: var(--color1);
+        color: white;
+        transform: scale(1.05);
+    }
+}
+
+.publishButton {
+    min-width: 300px;
+    
+    &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        background-color: gray;
+    }
+}
+
+// components/SetAvailability/SetAvailability.module.scss
+
+// ... (keep existing styles above)
+
+.statusMessage {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 1rem;
+    margin-bottom: 2rem;
+    border-radius: 0.5rem;
+    font-weight: 500;
+    font-size: 1.1rem;
+
+    &.success {
+        /* FIX: Change background/color to SUCCESS GREEN */
+        background-color: #d4edda; /* Light green background */
+        color: #155724; /* Dark green text */
+        border: 1px solid #c3e6cb;
+    }
+
+    &.error {
+        /* Keep existing ERROR RED styles */
+        background-color: #f8d7da;
+        color: #721c24;
+        border: 1px solid #f5c6cb;
+    }
+}

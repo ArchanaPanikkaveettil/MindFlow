@@ -1,0 +1,191 @@
+@import "@/styles/base";
+
+// Submenu Overlay Styles
+
+
+
+.MainHeader {
+    width: 100%;
+    position: fixed;
+    top: 10px;
+    left: 0;
+    z-index: 999;
+    background-color: transparent;
+    transition: all 0.3s ease;
+
+    .header_logo {
+        padding-left: 2%;
+        padding-right: 2%;
+        max-height: 100%;
+        max-width: 250px;
+        height: 100%;
+
+
+        a {
+            display: block;
+            height: 100%;
+            width: 100%;
+            transition: all 0.3s ease;
+            padding: 15px 0;
+
+            img {
+                height: 100%;
+                width: 100%;
+            }
+
+            @include max(1200) {
+                width: 70%;
+            }
+
+            @include max(500) {
+                width: 100%;
+            }
+        }
+
+        &.header_sticky_logo {
+            a {
+                width: 80%;
+
+                @include max(1200) {
+                    width: 70%;
+                }
+
+                @include max(700) {
+                    width: 70%;
+                }
+
+                @include max(500) {
+                    width: 90%;
+                }
+            }
+        }
+
+        @include max(1024) {
+            padding-left: 6%;
+            padding-right: 6%;
+        }
+
+        @include max(700) {
+            padding-left: 20px;
+            padding-right: 20px;
+            width: 35%;
+        }
+    }
+
+    .headerInner {
+        display: flex;
+        align-items: center;
+        margin-top: 10px;
+        justify-content: space-between;
+        position: relative;
+        z-index: 22;
+        background-color: rgb(255, 255, 255);
+        padding: 0 2%;
+        border-radius: 80px;
+        box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.144);
+        transition: all 0.3s ease;
+
+
+        @include max(1200) {
+            padding: 10px 0;
+        }
+
+        @include max(500) {
+            .logo {
+                // max-width: 260px;
+                max-width: 110px;
+
+                img {
+                    width: 100%;
+                    height: auto;
+                }
+            }
+        }
+
+
+
+        // @include max(400) {
+        //     .logo {
+        //         // max-width: 230px;
+        //         max-width: 180px;
+        //     }
+        // }
+
+        @include max(380) {
+            .logo {
+                max-width: 155px;
+            }
+        }
+
+        .navLinks {
+            display: block;
+            padding-left: 20px;
+            padding-right: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 25px;
+
+            li {
+
+                a,
+                span {
+                    transition: all 0.3s ease;
+                    cursor: pointer;
+
+                    &:hover {
+                        color: var(--color2);
+                    }
+                }
+            }
+
+        }
+
+
+
+
+    }
+
+    &.scrolled {
+        background-color: white;
+        top: 0px;
+        box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.144);
+
+        .headerInner {
+            margin-top: 0px;
+            background-color: rgb(255, 255, 255);
+            padding: 0 2%;
+            border-radius: 0px;
+            box-shadow: unset;
+        }
+    }
+
+}
+
+
+
+.profileLink {
+    height: auto;
+    width: 35px;
+    aspect-ratio: 1/1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color4);
+    border-radius: 50%;
+    flex-shrink: 0;
+
+    svg {
+        stroke: var(--color3);
+        transition: stroke 0.3s ease;
+    }
+
+    &:hover {
+        color: var(--color1);
+
+        svg {
+            stroke: var(--color1);
+        }
+    }
+
+}

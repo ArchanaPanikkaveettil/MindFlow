@@ -1,0 +1,125 @@
+.motivationSection {
+  text-align: center;
+  color: var(--color2);
+}
+
+.quoteCard {
+  background-color: rgba(239, 187, 207, 0.125);
+  border-radius: 1rem;
+  padding: 3rem 2rem;
+  margin-bottom: 4rem;
+  max-width: 800px;
+  margin-inline: auto;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+}
+
+.quoteHeading {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: var(--color1);
+}
+
+.quoteText {
+  font-size: 1.75rem;
+  font-weight: 400;
+  line-height: 1.5;
+  margin-bottom: 1rem;
+}
+
+.quoteAuthor {
+  font-style: italic;
+  opacity: 0.8;
+  font-size: 1.1rem;
+}
+
+.sectionTitle {
+  font-size: 2rem;
+  font-weight: 500;
+  margin-bottom: 2.5rem;
+}
+
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 25px;
+}
+
+.tipCard {
+  background-color: rgba(191, 162, 219, 0.08);
+  border-radius: 1rem;
+  padding: 2rem;
+  flex: 1 1 30%;
+  min-width: 280px;
+  max-width: 320px;
+  margin-inline: auto;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  &:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.08);
+  }
+}
+
+.iconWrapper {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1rem auto;
+}
+
+.iconBlue {
+  background-color: rgba(126, 197, 255, 0.2);
+  color: #0077ff;
+}
+
+.iconGreen {
+  background-color: rgba(168, 239, 187, 0.2);
+  color: #1b8f3a;
+}
+
+.iconPurple {
+  background-color: rgba(191, 162, 219, 0.25);
+  color: var(--color2);
+}
+
+.iconPink {
+  background-color: rgba(239, 187, 207, 0.25);
+  color: var(--color1);
+}
+
+.iconYellow {
+  background-color: rgba(255, 223, 107, 0.2);
+  color: #ffb300;
+}
+
+.tipTitle {
+  font-size: 1.25rem;
+  font-weight: 500;
+  margin-bottom: 0.75rem;
+}
+
+.tipDesc {
+  font-size: 1rem;
+  line-height: 1.5;
+  opacity: 0.9;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .quoteText {
+    font-size: 1.25rem;
+  }
+
+  .grid {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .tipCard {
+    width: 90%;
+  }
+}

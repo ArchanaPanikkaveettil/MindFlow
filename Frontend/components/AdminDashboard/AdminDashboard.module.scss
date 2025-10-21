@@ -1,0 +1,149 @@
+.dashboard {
+  text-align: center;
+
+  .title {
+    font-size: 2rem;
+    color: #3c2a4d;
+    margin-bottom: 2rem;
+  }
+
+  .topButtons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+
+    .tabBtn {
+      background: #f3f0fa;
+      border: none;
+      padding: 0.8rem 1.5rem;
+      border-radius: 8px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+
+      &:hover {
+        background: #e5d8fa;
+      }
+
+      &.active {
+        background: #7b4ede;
+        color: #fff;
+      }
+    }
+  }
+
+  .contentSection {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+  }
+
+  .sectionBox {
+    text-align: left;
+
+    .sectionTitle {
+      font-size: 1.4rem;
+      color: #442d7a;
+      margin-bottom: 1.5rem;
+    }
+
+    .table {
+      width: 100%;
+      border-collapse: collapse;
+
+      th,
+      td {
+        border-bottom: 1px solid #eee;
+        padding: 0.8rem;
+        text-align: left;
+      }
+
+      th {
+        background: #faf8ff;
+        color: #5a4b81;
+      }
+
+      .iconBtn {
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: #7b4ede;
+        margin-right: 8px;
+
+        &:hover {
+          color: #5a37b8;
+        }
+      }
+    }
+
+    .policyList {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+
+      .policyCard {
+        background: #faf8ff;
+        padding: 1rem;
+        border-radius: 8px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        h4 {
+          margin: 0;
+        }
+
+        .policyDate {
+          font-size: 0.85rem;
+          color: #888;
+        }
+
+        .editBtn {
+          background: #7b4ede;
+          color: white;
+          border: none;
+          border-radius: 6px;
+          padding: 0.5rem 1rem;
+          display: flex;
+          align-items: center;
+          gap: 5px;
+          cursor: pointer;
+          transition: 0.3s;
+
+          &:hover {
+            background: #5a37b8;
+          }
+        }
+      }
+    }
+
+    .addBtn {
+    background: var(--color2);
+      border: none;
+      color: white;
+      padding: 0.7rem 1.5rem;
+      border-radius: 8px;
+      margin-top: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 600;
+      cursor: pointer;
+
+      &:hover {
+        background: #e96b9a;
+      }
+    }
+  }
+
+  .emptyText {
+    color: #777;
+    font-size: 1rem;
+    margin-top: 2rem;
+  }
+}

@@ -1,0 +1,84 @@
+.loginMainBody {
+  height: 100dvh;
+  width: 100%;
+  background-image: url("/images/login.jpg");
+  background-repeat: repeat;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: sans-serif;
+}
+
+.loginFormBody {
+  height: 400px;
+  width: 380px;
+  background-color: #fff;
+  object-fit: cover;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+}
+
+.loginFormTitle {
+  height: 50px;
+  width: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2.5rem;
+  font-weight: 600;
+  margin-top: 15px;
+}
+
+.loginFormInput {
+  height: 40px;
+  width: 65%;
+  padding: 0 5%;
+}
+
+.loginFormBtn {
+  height: 45px;
+  width: 75%;
+  border: 0;
+  color: #fff;
+  border-radius: 10px;
+  font-size: 1.2rem;
+  background-color: rgb(0, 17, 67);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.loginFormBtnBack {
+  position: absolute;
+  top: -30px;
+  left: -220px;
+  transform: rotate(120deg);
+  height: 120px;
+  width: 250px;
+  background-color: rgba(255, 255, 255, 0.27);
+  transition: all 0.8s ease-in-out;
+}
+
+.loginFormBtn:hover .loginFormBtnBack {
+  left: 250px;
+}
+
+/* Optional extras if you want */
+.loginFooter {
+  font-size: 0.9rem;
+  margin-top: 10px;
+}
+
+.registerLink {
+  color: rgb(0, 17, 67);
+  font-weight: 600;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}

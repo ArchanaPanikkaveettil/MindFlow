@@ -1,0 +1,99 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900');
+
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+  overflow-x: hidden;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --color1: #E7A1C4;
+  /* Soft Rose — emotional warmth, compassion */
+  --color2: #A485E2;
+  /* Lavender Purple — calm, spiritual, creative energy */
+  --color3: #F7F3FA;
+  /* Misty Lilac — airy, feminine background tone */
+  --color4: #2E2B3F;
+  /* Deep Charcoal Violet — grounding contrast for text */
+}
+
+
+/* Links */
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+a:hover {
+  color: #A485E2;
+}
+
+
+/* Buttons */
+button {
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: transparent;
+  font: inherit;
+}
+
+button:focus {
+  outline: none;
+}
+
+/* Inputs & Forms */
+input,
+textarea,
+select {
+  border: none;
+  outline: none;
+  font: inherit;
+  background: transparent;
+  width: 100%;
+  font-size: 16px;
+  display: block;
+  transition: all 0.3s ease;
+}
+
+/* Images */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+  transition: all 0.3s ease;
+}
+
+/* Lists */
+ul,
+li {
+  list-style: none;
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+p {
+  margin: 0;
+  margin-bottom: 15px;
+}
