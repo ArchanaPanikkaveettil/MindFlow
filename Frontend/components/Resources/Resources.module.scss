@@ -1,0 +1,325 @@
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+// 1. Breathing Card Styles
+.breathingCard {
+  background: rgba(253, 252, 251, 0.75);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(164, 133, 226, 0.15);
+  border-radius: 24px;
+  padding: 40px;
+  margin-bottom: 40px;
+  box-shadow: 0 15px 40px rgba(164, 133, 226, 0.06);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 40px;
+
+  .breathingText {
+    flex: 1;
+
+    h3 {
+      font-size: 24px;
+      color: var(--color4);
+      margin-bottom: 12px;
+      font-weight: 600;
+    }
+
+    p {
+      font-size: 15px;
+      line-height: 1.6;
+      color: var(--color4);
+      opacity: 0.8;
+    }
+  }
+
+  .breathingVisualizer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 320px;
+    height: 320px;
+    flex-shrink: 0;
+    position: relative;
+  }
+}
+
+.circleOuter {
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  background: rgba(164, 133, 226, 0.12);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 25px;
+  position: relative;
+  transition: all 4s linear; // Matches the 4-second box breathing interval
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: -5px;
+    bottom: -5px;
+    left: -5px;
+    right: -5px;
+    border-radius: 50%;
+    border: 2px dashed rgba(231, 161, 196, 0.4);
+    opacity: 0.5;
+  }
+
+  // Animation states
+  &.expand {
+    width: 230px;
+    height: 230px;
+    background: rgba(164, 133, 226, 0.22);
+  }
+
+  &.hold {
+    width: 230px;
+    height: 230px;
+    background: rgba(231, 161, 196, 0.22);
+    &::after {
+      animation: rotate 8s linear infinite;
+    }
+  }
+
+  &.contract {
+    width: 160px;
+    height: 160px;
+    background: rgba(164, 133, 226, 0.15);
+  }
+
+  &.idle {
+    width: 160px;
+    height: 160px;
+    background: rgba(164, 133, 226, 0.12);
+  }
+}
+
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.circleInner {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  background: #FFF;
+  box-shadow: 0 8px 24px rgba(164, 133, 226, 0.15);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+
+  .phaseLabel {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--color2);
+    text-align: center;
+  }
+
+  .timerNum {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--color4);
+    opacity: 0.6;
+    margin-top: 4px;
+  }
+}
+
+.breathingButton {
+  padding: 10px 20px;
+  background: var(--color2);
+  color: #FFF;
+  border-radius: 10px;
+  font-size: 13.5px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: #9273D1;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(164, 133, 226, 0.2);
+  }
+}
+
+// 2. Grid Layout
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+}
+
+.sectionCard {
+  background: rgba(253, 252, 251, 0.7);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(164, 133, 226, 0.15);
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 10px 35px rgba(164, 133, 226, 0.05);
+
+  .sectionTitle {
+    font-size: 20px;
+    font-weight: 650;
+    color: var(--color4);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+
+  .sectionDesc {
+    font-size: 14px;
+    color: var(--color4);
+    opacity: 0.7;
+    margin-bottom: 25px;
+    line-height: 1.5;
+  }
+}
+
+// Helpline Cards
+.helplineList {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.helplineCard {
+  background: #FFF;
+  border: 1px solid #ECE8F2;
+  border-radius: 12px;
+  padding: 16px;
+  transition: all 0.25s ease;
+
+  &:hover {
+    border-color: #EFBBCF;
+    box-shadow: 0 4px 15px rgba(239, 187, 207, 0.15);
+  }
+
+  .hlHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .hlName {
+    font-size: 14.5px;
+    font-weight: 600;
+    color: var(--color4);
+  }
+
+  .hlNumber {
+    font-size: 14.5px;
+    font-weight: 700;
+    color: #C62828;
+    background: #FFEBEE;
+    padding: 4px 10px;
+    border-radius: 8px;
+
+    &:hover {
+      background: #FFCDD2;
+    }
+  }
+
+  .hlDesc {
+    font-size: 13px;
+    line-height: 1.4;
+    color: var(--color4);
+    opacity: 0.7;
+  }
+}
+
+// Meditations List
+.meditationList {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.meditationCard {
+  background: #FFF;
+  border: 1px solid #ECE8F2;
+  border-radius: 12px;
+  padding: 16px;
+  transition: all 0.25s ease;
+
+  &:hover {
+    border-color: var(--color2);
+    box-shadow: 0 4px 15px rgba(164, 133, 226, 0.12);
+  }
+
+  .medHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+
+  .medCategory {
+    font-size: 11px;
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    color: var(--color2);
+    background: #F4F0FC;
+    padding: 3px 8px;
+    border-radius: 6px;
+  }
+
+  .medDuration {
+    font-size: 12px;
+    color: var(--color4);
+    opacity: 0.5;
+  }
+
+  .medTitle {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--color4);
+    margin-bottom: 12px;
+    line-height: 1.4;
+  }
+
+  .medLink {
+    display: inline-flex;
+    align-items: center;
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--color1);
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+@media (max-width: 900px) {
+  .breathingCard {
+    flex-direction: column;
+    padding: 30px;
+    gap: 20px;
+
+    .breathingVisualizer {
+      width: 100%;
+      height: auto;
+    }
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}

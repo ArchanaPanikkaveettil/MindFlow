@@ -15,6 +15,8 @@ const moodLogSchema = new mongoose.Schema({
         max: 10 
     },
     notes: { type: String, maxlength: 500 },
+    activities: [{ type: String }],
+    triggers: [{ type: String }],
     moodScore: { // Calculated score for analysis (1=lowest, 10=highest)
         type: Number,
         min: 1,

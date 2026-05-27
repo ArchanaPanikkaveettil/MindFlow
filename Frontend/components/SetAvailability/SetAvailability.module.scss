@@ -153,3 +153,135 @@
         border: 1px solid #f5c6cb;
     }
 }
+
+.manageSlotsContainer {
+    margin-top: 2rem;
+    text-align: left;
+}
+
+.slotsTableWrapper {
+    overflow-x: auto;
+    background: #fdfcff;
+    border-radius: 1rem;
+    border: 1px solid rgba(164, 133, 226, 0.15);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+}
+
+.slotsTable {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+
+    th, td {
+        padding: 1rem 1.25rem;
+        text-align: left;
+        border-bottom: 1px solid rgba(164, 133, 226, 0.1);
+    }
+
+    th {
+        background-color: var(--color3);
+        color: var(--color4);
+        font-weight: 600;
+    }
+
+    tr:last-child td {
+        border-bottom: none;
+    }
+
+    tr:hover {
+        background-color: rgba(164, 133, 226, 0.02);
+    }
+}
+
+.rowBooked {
+    background-color: rgba(164, 133, 226, 0.05);
+}
+
+.badge {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 1rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.badgeAvailable {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.badgeBooked {
+    background-color: #cce5ff;
+    color: #004085;
+}
+
+.badgeBlocked {
+    background-color: #fff3cd;
+    color: #856404;
+}
+
+.studentPhone {
+    font-size: 0.85rem;
+    color: var(--color4);
+    opacity: 0.7;
+}
+
+.mutedText {
+    color: #999;
+}
+
+.actionButtons {
+    display: flex;
+    gap: 8px;
+}
+
+.actionBtn {
+    padding: 0.35rem 0.8rem;
+    border: none;
+    border-radius: 0.5rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btnBlock {
+    background-color: #fff3cd;
+    color: #856404;
+    border: 1px solid #ffeeba;
+
+    &:hover {
+        background-color: #ffeeba;
+    }
+}
+
+.btnUnblock {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+
+    &:hover {
+        background-color: #c3e6cb;
+    }
+}
+
+.btnDelete {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+
+    &:hover {
+        background-color: #f5c6cb;
+    }
+}
+
+.errorText {
+    color: red;
+    font-weight: 500;
+}
+
+.empty {
+    color: #888;
+    margin-top: 1.5rem;
+    font-style: italic;
+}

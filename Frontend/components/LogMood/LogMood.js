@@ -9,6 +9,28 @@ import {
 } from "lucide-react";
 import styles from "./LogMood.module.scss";
 
+const ACTIVITIES = [
+  "Exercise",
+  "Meditation",
+  "Slept Well",
+  "Healthy Meal",
+  "Socialized",
+  "Hobbies",
+  "Walk Outdoors",
+  "Work/Study Success"
+];
+
+const TRIGGERS = [
+  "Exam/Study Stress",
+  "Lack of Sleep",
+  "Work Pressure",
+  "Relationship Issue",
+  "Family Conflict",
+  "Financial Worry",
+  "Health Concern",
+  "Bad Weather"
+];
+
 // Added default props for clarity
 export default function LogMood({
   min = 1, // Default minimum value
@@ -21,11 +43,25 @@ export default function LogMood({
   const [selectedMood, setSelectedMood] = useState(null);
   const [thoughts, setThoughts] = useState("");
   const [intensity, setIntensity] = useState(initialValue);
+  const [selectedActivities, setSelectedActivities] = useState([]);
+  const [selectedTriggers, setSelectedTriggers] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   // State for the target date, defaults to today
   const [targetDate, setTargetDate] = useState(new Date());
   const [isDateFromUrl, setIsDateFromUrl] = useState(false); // Flag if date came from URL
+
+  const toggleActivity = (activity) => {
+    setSelectedActivities(prev =>
+      prev.includes(activity) ? prev.filter(a => a !== activity) : [...prev, activity]
+    );
+  };
+
+  const toggleTrigger = (trigger) => {
+    setSelectedTriggers(prev =>
+      prev.includes(trigger) ? prev.filter(t => t !== trigger) : [...prev, trigger]
+    );
+  };
 
   // useEffect to read the date from URL query parameter
   useEffect(() => {
@@ -99,7 +135,9 @@ export default function LogMood({
       emotion: selectedMood,
       intensity: intensity,
       notes: thoughts,
-      logDate: targetDate.toISOString() // Send date in ISO format
+      logDate: targetDate.toISOString(), // Send date in ISO format
+      activities: selectedActivities,
+      triggers: selectedTriggers
     };
 
     setIsLoading(true); // Set loading state
@@ -193,13 +231,53 @@ export default function LogMood({
           </div>
         </div>
 
+        {/* Activities Section */}
+        <div className={styles.section}>
+          <label className={styles.sectionLabel}>What have you been up to? (Select Activities)</label>
+          <div className={styles.chipsGrid}>
+            {ACTIVITIES.map((activity) => {
+              const isSel = selectedActivities.includes(activity);
+              return (
+                <button
+                  key={activity}
+                  type="button"
+                  className={`${styles.chip} ${isSel ? styles.chipActive : ""}`}
+                  onClick={() => toggleActivity(activity)}
+                >
+                  {activity}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Triggers Section */}
+        <div className={styles.section}>
+          <label className={styles.sectionLabel}>Did anything trigger your mood?</label>
+          <div className={styles.chipsGrid}>
+            {TRIGGERS.map((trigger) => {
+              const isSel = selectedTriggers.includes(trigger);
+              return (
+                <button
+                  key={trigger}
+                  type="button"
+                  className={`${styles.chip} ${styles.chipTrigger} ${isSel ? styles.chipTriggerActive : ""}`}
+                  onClick={() => toggleTrigger(trigger)}
+                >
+                  {trigger}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
         {/* Optional Notes Textarea */}
         <div className={styles.thoughtsSection}>
           <label className={styles.optionalLabel}>
-            Optional: Add notes about your mood
+            Optional: Write a daily journal entry describing your day
           </label>
           <textarea
-            placeholder="What's on your mind? Any triggers or activities?"
+            placeholder="Write down your thoughts, experiences, or reflections for today (saved privately)..."
             value={thoughts}
             onChange={(e) => setThoughts(e.target.value)}
             className={styles.textarea}

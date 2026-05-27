@@ -90,7 +90,7 @@ export default function AdminDashboard() {
             <div style="text-align:left">
               <p><b>Name:</b> ${user.name || "—"}</p>
               <p><b>Email:</b> ${user.loginId?.username || "—"}</p>
-              <p><b>Role:</b> ${user.loginId?.role === 0 ? "Admin" : user.loginId?.role === 1 ? "Counselor" : "User"}</p>
+              <p><b>Role:</b> ${user.loginId?.role === 0 ? "Admin" : user.loginId?.role === 1 ? "Counselor" : "Student"}</p>
               <p><b>Created At:</b> ${new Date(user.createdAt).toLocaleString() || "—"}</p>
             </div>
           `,
@@ -119,14 +119,18 @@ export default function AdminDashboard() {
       </select>
 
       <select id="swal-course" class="swal2-input" style="height:40px">
-        <option value="" disabled>Select Course</option>
+        <option value="" disabled>Select Course/Class</option>
         <option value="MCA" ${user.classOrGroup === "MCA" ? "selected" : ""}>MCA</option>
         <option value="IMCA" ${user.classOrGroup === "IMCA" ? "selected" : ""}>IMCA</option>
         <option value="MBA" ${user.classOrGroup === "MBA" ? "selected" : ""}>MBA</option>
         <option value="BTECH" ${user.classOrGroup === "BTECH" ? "selected" : ""}>BTECH</option>
-        </select>
-        `,
-      // <input id="swal-name" class="swal2-input" placeholder="Name" value="${user.phone || ""}">
+      </select>
+
+      <select id="swal-role" class="swal2-input" style="height:40px">
+        <option value="2" ${user.loginId?.role === 2 ? "selected" : ""}>Student</option>
+        <option value="1" ${user.loginId?.role === 1 ? "selected" : ""}>Counselor</option>
+      </select>
+      `,
       focusConfirm: false,
       showCancelButton: true,
       preConfirm: () => {
@@ -134,22 +138,38 @@ export default function AdminDashboard() {
           name: document.getElementById("swal-name").value,
           gender: document.getElementById("swal-gender").value,
           classOrGroup: document.getElementById("swal-course").value,
+          role: parseInt(document.getElementById("swal-role").value, 10),
         };
       },
     });
 
     if (formValues) {
       try {
-        const res = await axios.put(`${API_key}/admin/users/${user._id}`, formValues, {
+        // Update user profile fields (name, gender, course)
+        await axios.put(`${API_key}/admin/users/${user._id}`, {
+          name: formValues.name,
+          gender: formValues.gender,
+          classOrGroup: formValues.classOrGroup
+        }, {
           headers: { Authorization: `Bearer ${localStorage.getItem("authToken")}` },
         });
-        if (res.data.success) {
-          Swal.fire("Success", "User updated successfully", "success");
-          fetchUsers();
+
+        // Update role if changed
+        const currentRole = user.loginId?.role;
+        if (currentRole !== undefined && formValues.role !== currentRole) {
+          const loginId = user.loginId?._id || user.loginId;
+          await axios.put(`${API_key}/admin/users/${loginId}/role`, {
+            newRole: formValues.role
+          }, {
+            headers: { Authorization: `Bearer ${localStorage.getItem("authToken")}` },
+          });
         }
+
+        Swal.fire("Success", "User updated successfully", "success");
+        fetchUsers();
       } catch (err) {
         console.error(err);
-        Swal.fire("Error", "Failed to update user", "error");
+        Swal.fire("Error", "Failed to update user details or role", "error");
       }
     }
   };
@@ -184,6 +204,43 @@ export default function AdminDashboard() {
       } catch (err) {
         console.error(err);
         Swal.fire("Error", "Failed to update policy", "error");
+      }
+    }
+  };
+
+  // CREATE POLICY POPUP
+  const handleCreatePolicy = async () => {
+    const { value: formValues } = await Swal.fire({
+      title: "Create New Policy",
+      html: `
+        <input id="swal-title" class="swal2-input" placeholder="Title">
+        <textarea id="swal-content" class="swal2-textarea" placeholder="Content" style="height: 100px;"></textarea>
+      `,
+      focusConfirm: false,
+      showCancelButton: true,
+      preConfirm: () => {
+        const title = document.getElementById("swal-title").value;
+        const content = document.getElementById("swal-content").value;
+        if (!title || !content) {
+          Swal.showValidationMessage("Title and Content are required");
+          return null;
+        }
+        return { title, content };
+      },
+    });
+
+    if (formValues) {
+      try {
+        const res = await axios.post(`${API_key}/admin/policies`, formValues, {
+          headers: { Authorization: `Bearer ${localStorage.getItem("authToken")}` },
+        });
+        if (res.data.success) {
+          Swal.fire("Success", "New policy created successfully", "success");
+          fetchPolicies();
+        }
+      } catch (err) {
+        console.error(err);
+        Swal.fire("Error", "Failed to create policy", "error");
       }
     }
   };
@@ -230,7 +287,7 @@ export default function AdminDashboard() {
                       <tr key={user._id || i}>
                         <td>{user.name}</td>
                         <td>{user.loginId?.username || "—"}</td>
-                        <td>{user.loginId?.role === 0 ? "Admin" : user.loginId?.role === 1 ? "Counselor" : "User"}</td>
+                        <td>{user.loginId?.role === 0 ? "Admin" : user.loginId?.role === 1 ? "Counselor" : "Student"}</td>
                         <td>
                           <button onClick={() => handleViewUser(user._id)} className={styles.iconBtn}><Eye size={18} /></button>
                           <button onClick={() => handleEditUser(user)} className={styles.iconBtn}><Edit size={18} /></button>
@@ -262,7 +319,7 @@ export default function AdminDashboard() {
                 ))}
               </div>
             )}
-            <button className={styles.addBtn}><Plus size={18} /> Create New Policy</button>
+            <button onClick={handleCreatePolicy} className={styles.addBtn}><Plus size={18} /> Create New Policy</button>
           </div>
         )}
       </div>

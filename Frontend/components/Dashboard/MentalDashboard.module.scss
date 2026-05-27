@@ -26,16 +26,28 @@
 }
 
 .featureCard {
-    background-color: rgba(239, 187, 207, 0.125);
+    background-color: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(191, 162, 219, 0.15);
     border-radius: 1rem;
     padding: 2rem;
     display: flex;
     flex-direction: column;
     align-items: center;
-    transition: all 0.3s ease;
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
     width: 24%;
+    box-shadow: 0 8px 32px 0 rgba(191, 162, 219, 0.04);
 
-    
+    &:hover {
+        transform: translateY(-8px);
+        background-color: rgba(255, 255, 255, 0.95);
+        border-color: var(--color2);
+        box-shadow: 0 12px 40px 0 rgba(164, 133, 226, 0.12);
+
+        .iconWrapper {
+            transform: scale(1.1);
+        }
+    }
 }
 
 .iconWrapper {
@@ -46,6 +58,7 @@
     align-items: center;
     justify-content: center;
     margin-bottom: 1rem;
+    transition: transform 0.3s ease;
 
     &.iconPurple {
         background-color: rgba(191, 162, 219, 0.25);
@@ -186,4 +199,34 @@
     .grid {
         grid-template-columns: repeat(4, 1fr);
     }
+}
+
+.statusText {
+    font-size: 0.85rem;
+    margin-bottom: 1.25rem;
+    text-align: center;
+    min-height: 20px;
+    font-weight: 500;
+}
+
+.loggedText {
+    color: #2e7d32;
+    display: inline-flex;
+    align-items: center;
+}
+
+.notLoggedText {
+    color: #c62828;
+    display: inline-flex;
+    align-items: center;
+}
+
+.sessionText {
+    color: var(--color2);
+    font-weight: 600;
+}
+
+.noSessionText {
+    color: #555;
+    opacity: 0.7;
 }

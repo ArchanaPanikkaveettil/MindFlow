@@ -25,10 +25,9 @@
 
 .grid {
     display: grid;
-    // REVISED: Links on the left (1fr), Sessions on the right (2fr)
     grid-template-areas:
-        "links sessions sessions";
-    grid-template-columns: 1fr 2fr; 
+        "links alerts sessions";
+    grid-template-columns: 1fr 1.5fr 1.5fr; 
     gap: 30px;
     max-width: 1200px;
     margin: 0 auto;
@@ -37,6 +36,7 @@
         // Fallback to single column layout for small screens
         grid-template-areas:
             "links"
+            "alerts"
             "sessions";
         grid-template-columns: 1fr;
     }
@@ -92,7 +92,61 @@
 }
 
 // ----------------- Low Mood Alerts -----------------
-// REMOVED: .alertsSection block
+.alertsSection {
+    grid-area: alerts;
+    padding: 2rem;
+    background-color: rgba(211, 47, 47, 0.05);
+    border-radius: 1rem;
+    border: 1px solid rgba(211, 47, 47, 0.2);
+
+    .alertCard {
+        background-color: white;
+        padding: 1.2rem;
+        border-radius: 0.75rem;
+        margin-bottom: 15px;
+        border-left: 5px solid #d32f2f;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.03);
+        transition: all 0.3s ease;
+
+        &:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(211, 47, 47, 0.1);
+        }
+
+        .alertHeader {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+
+            .studentName {
+                font-weight: 600;
+                font-size: 1rem;
+                color: var(--color4);
+            }
+        }
+
+        .alertInfo {
+            margin: 0.3rem 0;
+            font-size: 0.9rem;
+            color: var(--color4);
+            opacity: 0.9;
+        }
+
+        .viewProfileBtn {
+            display: inline-block;
+            margin-top: 0.8rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #d32f2f;
+            text-decoration: underline;
+
+            &:hover {
+                color: var(--color4);
+            }
+        }
+    }
+}
 
 // ----------------- Upcoming Sessions -----------------
 .sessionsSection {

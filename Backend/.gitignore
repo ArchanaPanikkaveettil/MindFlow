@@ -1,0 +1,7 @@
+node_modules/
+.env
+*.log
+migrate-alex-to-archana.js
+verify-alerts.js
+query-db.js
+seed-alert-student.js

@@ -7,6 +7,7 @@ const UserRegModel = require('../models/userModelReg');
 const ScheduleModel = require('../models/ScheduleModel'); 
 const MoodLogModel = require('../models/MoodLogModel'); 
 const loginModel = require('../models/loginModel');
+const BookingModel = require('../models/BookingModel');
 
 const { authenticate, authorize, ROLES } = require('../middlewares/auth');
 
@@ -87,6 +88,93 @@ counselorRouter.get('/availability/public', authenticate, authorize([ROLES.USER]
 // COUNSELOR PROTECTED ROUTES START HERE (All routes below this line require Role 1)
 counselorRouter.use(authenticate, authorize([ROLES.COUNSELOR]));
 
+// =============================================
+// GET /availability (Counselor Only)
+// Fetch all availability slots for the logged-in counselor
+// =============================================
+counselorRouter.get('/availability', async (req, res) => {
+    try {
+        const slots = await ScheduleModel.find({
+            counselorId: req.user.id
+        })
+        .sort({ date: 1, startTime: 1 })
+        .populate({
+            path: 'userId',
+            model: 'UserReg',
+            select: 'name phone'
+        })
+        .lean();
+
+        res.status(200).json({ success: true, error: false, message: "Availability slots fetched", data: slots });
+    } catch (error) {
+        console.error("Availability Fetch Error:", error);
+        res.status(500).json({ success: false, error: true, message: "Error fetching availability slots" });
+    }
+});
+
+// =============================================
+// DELETE /availability/:slotId (Counselor Only)
+// Delete an availability slot (or cancel it if booked)
+// =============================================
+counselorRouter.delete('/availability/:slotId', async (req, res) => {
+    try {
+        const slotId = req.params.slotId;
+        const counselorId = req.user.id;
+
+        const slot = await ScheduleModel.findOne({ _id: slotId, counselorId: counselorId });
+        if (!slot) {
+            return res.status(404).json({ success: false, error: true, message: "Slot not found" });
+        }
+
+        // If the slot is booked, we should cancel any associated Booking
+        if (slot.isBooked && slot.userId) {
+            // Find and cancel the booking
+            const dateStr = slot.date.toISOString().split('T')[0];
+            const [hours, minutes] = slot.startTime.split(':');
+            const startDateTime = new Date(`${dateStr}T${hours.padStart(2, '0')}:${minutes.padStart(2, '0')}:00`);
+
+            await BookingModel.updateMany(
+                {
+                    counselorId: counselorId,
+                    startTime: startDateTime,
+                    status: 'booked'
+                },
+                { $set: { status: 'cancelled' } }
+            );
+        }
+
+        await ScheduleModel.deleteOne({ _id: slotId });
+        res.status(200).json({ success: true, error: false, message: "Slot deleted successfully" });
+    } catch (error) {
+        console.error("Delete Slot Error:", error);
+        res.status(500).json({ success: false, error: true, message: "Error deleting slot" });
+    }
+});
+
+// =============================================
+// PUT /availability/toggle/:slotId (Counselor Only)
+// Toggle availability (isAvailable) of a slot
+// =============================================
+counselorRouter.put('/availability/toggle/:slotId', async (req, res) => {
+    try {
+        const slotId = req.params.slotId;
+        const counselorId = req.user.id;
+
+        const slot = await ScheduleModel.findOne({ _id: slotId, counselorId: counselorId });
+        if (!slot) {
+            return res.status(404).json({ success: false, error: true, message: "Slot not found" });
+        }
+
+        slot.isAvailable = !slot.isAvailable;
+        await slot.save();
+
+        res.status(200).json({ success: true, error: false, message: "Slot availability updated", data: slot });
+    } catch (error) {
+        console.error("Toggle Slot Error:", error);
+        res.status(500).json({ success: false, error: true, message: "Error toggling slot availability" });
+    }
+});
+
 
 // =============================================
 // GET /students/profile/:loginId (Use Case: View Single Student Profile & History)
@@ -100,7 +188,7 @@ counselorRouter.get('/students/profile/:loginId', async (req, res) => {
 
         // 2. Find the student's User Profile using their loginId
         const studentProfile = await UserRegModel.findOne({ loginId: studentLoginId })
-            .select('name phone gender classOrGroup')
+            .select('name phone gender classOrGroup counselorNotes')
             .lean();
 
         if (!studentProfile) {
@@ -135,6 +223,31 @@ counselorRouter.get('/students/profile/:loginId', async (req, res) => {
             return res.status(400).json({ success: false, error: true, message: "Invalid student ID format." });
         }
         res.status(500).json({ success: false, error: true, message: "Error fetching student details." });
+    }
+});
+
+// =============================================
+// NEW: PUT /students/profile/:loginId/notes (Use Case: Save Counselor Notes)
+// =============================================
+counselorRouter.put('/students/profile/:loginId/notes', async (req, res) => {
+    try {
+        const studentLoginId = req.params.loginId;
+        const { counselorNotes } = req.body;
+
+        const updatedProfile = await UserRegModel.findOneAndUpdate(
+            { loginId: studentLoginId },
+            { $set: { counselorNotes } },
+            { new: true }
+        );
+
+        if (!updatedProfile) {
+            return res.status(404).json({ success: false, error: true, message: "Student profile not found." });
+        }
+
+        res.status(200).json({ success: true, error: false, message: "Counselor notes updated successfully", data: updatedProfile });
+    } catch (error) {
+        console.error("Save Counselor Notes Error:", error);
+        res.status(500).json({ success: false, error: true, message: "Error updating counselor notes." });
     }
 });
 

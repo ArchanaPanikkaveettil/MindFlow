@@ -1,0 +1,344 @@
+.assessmentContainer {
+  max-width: 650px;
+  margin: 40px auto;
+  padding: 0 15px;
+}
+
+.progressBarWrapper {
+  margin-bottom: 25px;
+
+  .progressText {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--color4);
+    opacity: 0.8;
+    margin-bottom: 8px;
+  }
+
+  .progressBarContainer {
+    width: 100%;
+    height: 6px;
+    background: #E8E5EE;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  .progressBarFill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--color1) 0%, var(--color2) 100%);
+    border-radius: 10px;
+    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+}
+
+.questionCard {
+  background: rgba(253, 252, 251, 0.7);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(164, 133, 226, 0.15);
+  border-radius: 20px;
+  padding: 40px 30px;
+  box-shadow: 0 10px 30px rgba(164, 133, 226, 0.06);
+  transition: all 0.3s ease;
+
+  .questionText {
+    font-size: 24px;
+    color: var(--color4);
+    margin-bottom: 12px;
+    font-weight: 600;
+  }
+
+  .questionDesc {
+    font-size: 14px;
+    color: var(--color4);
+    opacity: 0.65;
+    margin-bottom: 30px;
+    line-height: 1.5;
+  }
+}
+
+.optionsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 40px;
+}
+
+.optionButton {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 16px 20px;
+  background: #FFFBFD;
+  border: 1px solid #ECE8F2;
+  border-radius: 14px;
+  text-align: left;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+
+  &:hover {
+    background: #FFF7FA;
+    border-color: var(--color1);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(231, 161, 196, 0.08);
+  }
+
+  &.selected {
+    background: #FAF6FF;
+    border-color: var(--color2);
+    box-shadow: 0 4px 15px rgba(164, 133, 226, 0.12);
+  }
+
+  .bullet {
+    width: 18px;
+    height: 18px;
+    border-width: 2px;
+    border-style: solid;
+    border-radius: 50%;
+    margin-right: 15px;
+    flex-shrink: 0;
+    transition: all 0.2s ease;
+  }
+
+  .optionLabel {
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--color4);
+  }
+}
+
+.navigationButtons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .navBtn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--color4);
+    background: #EFEBF5;
+    transition: all 0.25s ease;
+
+    &:hover:not(:disabled) {
+      background: #E5DFEE;
+      color: var(--color2);
+    }
+
+    &:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+  }
+
+  .submitBtn {
+    background: var(--color2);
+    color: #FFF;
+
+    &:hover:not(:disabled) {
+      background: #9273D1;
+      color: #FFF;
+      box-shadow: 0 4px 15px rgba(164, 133, 226, 0.2);
+    }
+  }
+}
+
+// Result Card Styles
+.resultCard {
+  max-width: 650px;
+  margin: 40px auto;
+  background: rgba(253, 252, 251, 0.75);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(164, 133, 226, 0.15);
+  border-radius: 24px;
+  padding: 50px 40px;
+  text-align: center;
+  box-shadow: 0 15px 40px rgba(164, 133, 226, 0.08);
+
+  .successIconWrapper {
+    margin-bottom: 20px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    background: #F4F0FC;
+    padding: 15px;
+    border-radius: 50%;
+  }
+
+  .resultTitle {
+    font-size: 26px;
+    color: var(--color4);
+    margin-bottom: 6px;
+  }
+
+  .resultSubtitle {
+    font-size: 15px;
+    color: var(--color4);
+    opacity: 0.6;
+    margin-bottom: 35px;
+  }
+}
+
+.scoreBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 35px;
+
+  .scoreCircle {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #FFF6FB 0%, #F5F0FF 100%);
+    border: 3px solid var(--color2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 18px;
+    box-shadow: inset 0 4px 10px rgba(164, 133, 226, 0.05);
+
+    .scoreNum {
+      font-size: 34px;
+      font-weight: 700;
+      color: var(--color2);
+    }
+
+    .scoreMax {
+      font-size: 16px;
+      color: var(--color4);
+      opacity: 0.5;
+      margin-top: 10px;
+    }
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 600;
+  }
+}
+
+.adviceSection {
+  background: #FCFAFD;
+  border: 1px solid #ECE8F2;
+  border-radius: 16px;
+  padding: 25px;
+  text-align: left;
+  margin-bottom: 35px;
+
+  .adviceHeader {
+    font-size: 16px;
+    font-weight: 650;
+    color: var(--color4);
+    margin-bottom: 12px;
+  }
+
+  .adviceText {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--color4);
+    opacity: 0.8;
+    margin-bottom: 18px;
+  }
+
+  .recommendationList {
+    padding-left: 20px;
+    margin: 0;
+
+    li {
+      font-size: 13.5px;
+      color: var(--color4);
+      opacity: 0.85;
+      margin-bottom: 8px;
+      list-style-type: disc;
+    }
+  }
+}
+
+.actionButtons {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  margin-bottom: 25px;
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 25px;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 600;
+    flex: 1;
+    max-width: 220px;
+    transition: all 0.3s ease;
+  }
+
+  .btnPrimary {
+    background: var(--color2);
+    color: #FFF;
+
+    &:hover {
+      background: #9273D1;
+      box-shadow: 0 6px 20px rgba(164, 133, 226, 0.25);
+      transform: translateY(-2px);
+    }
+  }
+
+  .btnOutline {
+    background: #FFF;
+    border: 2px solid var(--color1);
+    color: var(--color1);
+
+    &:hover {
+      background: #FFF5F9;
+      transform: translateY(-2px);
+    }
+  }
+}
+
+.footerLink {
+  a {
+    font-size: 13px;
+    color: var(--color2);
+    font-weight: 500;
+    opacity: 0.8;
+
+    &:hover {
+      opacity: 1;
+      text-decoration: underline;
+    }
+  }
+}
+
+.errorMessage {
+  color: #C62828;
+  font-size: 13.5px;
+  margin-top: 10px;
+  text-align: center;
+}
+
+@media (max-width: 600px) {
+  .questionCard, .resultCard {
+    padding: 25px 20px;
+  }
+
+  .actionButtons {
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+
+    .btn {
+      max-width: 100%;
+      width: 100%;
+    }
+  }
+}

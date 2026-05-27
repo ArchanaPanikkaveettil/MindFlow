@@ -20,10 +20,13 @@ export default function StudentProfile() {
 
     const [profile, setProfile] = useState(null);
     const [moodHistory, setMoodHistory] = useState([]);
+    const [assessments, setAssessments] = useState([]); // New state for stress test history
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
     // NEW: State to hold extracted email
     const [studentEmail, setStudentEmail] = useState('N/A'); 
+    const [notesText, setNotesText] = useState("");
+    const [isSavingNotes, setIsSavingNotes] = useState(false);
 
     // --- Fetch Student Profile and Mood History ---
     useEffect(() => {
@@ -52,11 +55,23 @@ export default function StudentProfile() {
                 const studentData = response.data.data.profile;
                 
                 setProfile(studentData);
+                setNotesText(studentData.counselorNotes || "");
                 setMoodHistory(response.data.data.moodHistory);
                 
                 // FIX: Set email state using the 'email' property injected by the backend (Routes/counselorRouter.js)
                 setStudentEmail(studentData.email || 'Email unavailable');
 
+                // Fetch assessment history
+                try {
+                    const assessmentResponse = await axios.get(
+                        `${process.env.NEXT_PUBLIC_BASE_URI}/mood/assessment/history/${loginId}`,
+                        { headers: { 'Authorization': `Bearer ${token}` } }
+                    );
+                    setAssessments(assessmentResponse.data.data || []);
+                } catch (aErr) {
+                    console.error("Error fetching assessments:", aErr);
+                    setAssessments([]); // Fallback
+                }
 
             } catch (err) {
                 console.error("Student Profile Fetch Error:", err);
@@ -70,6 +85,23 @@ export default function StudentProfile() {
         fetchStudentData();
     }, [router.isReady, loginId, router]); // Dependency on router readiness and loginId
     
+    const handleSaveNotes = async () => {
+        setIsSavingNotes(true);
+        const token = localStorage.getItem('authToken');
+        try {
+            await axios.put(
+                `${process.env.NEXT_PUBLIC_BASE_URI}/counselor/students/profile/${loginId}/notes`,
+                { counselorNotes: notesText },
+                { headers: { 'Authorization': `Bearer ${token}` } }
+            );
+            alert("Notes saved successfully!");
+        } catch (err) {
+            console.error("Error saving counselor notes:", err);
+            alert("Failed to save notes.");
+        } finally {
+            setIsSavingNotes(false);
+        }
+    };
     
     // --- Conditional Renderings ---
     if (isLoading) {
@@ -117,12 +149,31 @@ export default function StudentProfile() {
                         <p><Mail size={20} /> Email: <strong>{studentEmail}</strong></p> 
                         <p><Heart size={20} /> Gender: <strong>{profile.gender || '-'}</strong></p>
                     </div>
+
+                    {/* Counselor Private Notes Block */}
+                    <div className={styles.notesSection}>
+                        <h3 className={styles.notesTitle}>Private Counselor Notes</h3>
+                        <textarea
+                            className={styles.notesTextarea}
+                            value={notesText}
+                            onChange={(e) => setNotesText(e.target.value)}
+                            placeholder="Add case notes, counseling summary, or follow-up tasks..."
+                        />
+                        <button
+                            className="common_btn"
+                            onClick={handleSaveNotes}
+                            disabled={isSavingNotes}
+                            style={{ marginTop: "10px", width: "100%" }}
+                        >
+                            {isSavingNotes ? "Saving Notes..." : "Save Notes"}
+                        </button>
+                    </div>
                 </div>
 
                 {/* --- Mood History Section --- */}
                 <div className={styles.moodSection}>
                     <h2 className={styles.sectionTitle}>
-                        <TrendingUp size={24} /> Recent Mood History
+                        <TrendingUp size={24} /> Recent Mood History & Journal Entries
                     </h2>
                     
                     {moodHistory.length === 0 ? (
@@ -140,7 +191,34 @@ export default function StudentProfile() {
                                         <p>Intensity: {log.intensity}/10</p> 
                                         <p className={styles.score}>Normalized Score: {log.moodScore}/10</p>
                                     </div>
-                                    {log.notes && <p className={styles.logNotes}>Notes: {log.notes}</p>}
+                                    {log.notes && <p className={styles.logNotes}>Journal Entry: {log.notes}</p>}
+                                </div>
+                            ))}
+                        </div>
+                    )}
+                </div>
+
+                {/* --- Stress Assessments History Section --- */}
+                <div className={styles.moodSection} style={{ marginTop: "40px" }}>
+                    <h2 className={styles.sectionTitle}>
+                        <TrendingUp size={24} /> Stress Assessments History
+                    </h2>
+                    
+                    {assessments.length === 0 ? (
+                        <p className={styles.empty}>No stress assessments taken yet.</p>
+                    ) : (
+                        <div className={styles.moodList}>
+                            {assessments.map((ass) => (
+                                <div key={ass._id} className={styles.moodLog} style={{ borderLeftColor: ass.level === 'Severe' ? '#C62828' : ass.level === 'Moderate' ? '#F57F17' : '#2E7D32' }}>
+                                    <div className={styles.logHeader}>
+                                        <span className={styles.emotion} style={{ fontWeight: 'bold', color: ass.level === 'Severe' ? '#C62828' : ass.level === 'Moderate' ? '#F57F17' : '#2E7D32' }}>
+                                            Stress Level: {ass.level}
+                                        </span>
+                                        <span className={styles.date}>{formatDate(ass.takenAt)}</span>
+                                    </div>
+                                    <div className={styles.logDetails}>
+                                        <p>Overall Score: <strong>{ass.score} / 15</strong></p>
+                                    </div>
                                 </div>
                             ))}
                         </div>

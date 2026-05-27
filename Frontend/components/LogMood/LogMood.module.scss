@@ -254,3 +254,71 @@
         font-size: 0.8rem;
     }
 }
+
+.section {
+    margin-bottom: 2.5rem;
+    text-align: left;
+    max-width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+
+    @media (max-width: 1024px) {
+        max-width: 80%;
+    }
+    @media (max-width: 480px) {
+        max-width: 100%;
+    }
+}
+
+.sectionLabel {
+    display: block;
+    font-weight: 500;
+    color: var(--color2);
+    margin-bottom: 0.75rem;
+    font-size: 1.05rem;
+}
+
+.chipsGrid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem;
+}
+
+.chip {
+    padding: 0.5rem 1.1rem;
+    border-radius: 20px;
+    border: 1px solid rgba(191, 162, 219, 0.5);
+    background-color: white;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+    color: var(--color2);
+    font-weight: 500;
+
+    &:hover {
+        background-color: rgba(191, 162, 219, 0.1);
+        border-color: var(--color2);
+    }
+}
+
+.chipActive {
+    background-color: var(--color2) !important;
+    color: white !important;
+    border-color: var(--color2) !important;
+}
+
+.chipTrigger {
+    border-color: rgba(239, 187, 207, 0.8);
+    color: var(--color1);
+
+    &:hover {
+        background-color: rgba(239, 187, 207, 0.1);
+        border-color: var(--color1);
+    }
+}
+
+.chipTriggerActive {
+    background-color: var(--color1) !important;
+    color: white !important;
+    border-color: var(--color1) !important;
+}

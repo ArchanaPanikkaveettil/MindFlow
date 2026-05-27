@@ -6,6 +6,7 @@ const mongoose = require('mongoose'); // <--- FIX: Added missing Mongoose import
 // Corrected Path: '../../' (Assuming your project structure is 'routes' -> 'models')
 const MoodLogModel = require('../models/MoodLogModel');
 const UserRegModel = require('../models/userModelReg');
+const AssessmentModel = require('../models/AssessmentModel');
 // Corrected Path: '../../'
 const { authenticate, authorize, ROLES } = require('../middlewares/auth');
 
@@ -27,7 +28,7 @@ const calculateMoodScore = (emotion, intensity) => {
 // =========================================================
 moodRouter.post('/log', authenticate, authorize([ROLES.USER]), async (req, res) => {
     try {
-        const { emotion, intensity, notes, logDate } = req.body; // Added logDate destructuring
+        const { emotion, intensity, notes, logDate, activities, triggers } = req.body; // Added activities & triggers
         // Validate that emotion and intensity are provided
         if (!emotion || !intensity) {
             return res.status(400).json({ success: false, error: true, message: "Emotion and intensity are required." });
@@ -45,7 +46,9 @@ moodRouter.post('/log', authenticate, authorize([ROLES.USER]), async (req, res) 
             intensity,
             notes,
             moodScore,
-            loggedAt: dateToLog
+            loggedAt: dateToLog,
+            activities: activities || [],
+            triggers: triggers || []
         });
 
         const savedLog = await newLog.save();
@@ -104,7 +107,18 @@ moodRouter.get('/alerts/low-mood', authenticate, authorize([ROLES.COUNSELOR]), a
             { $group: { _id: "$userId", averageMood: { $avg: "$moodScore" }, logCount: { $sum: 1 } } },
             // 3. Filter: Apply alert criteria (Avg score <= 4 AND at least 5 logs)
             { $match: { averageMood: { $lte: 4 }, logCount: { $gte: 5 } } },
-            // 4. Lookup: Join with User Profile to get student name/contact details
+            // 4. Verify user role is Student (role = 2)
+            {
+                $lookup: {
+                    from: 'logins',
+                    localField: '_id',
+                    foreignField: '_id',
+                    as: 'loginInfo'
+                }
+            },
+            { $unwind: '$loginInfo' },
+            { $match: { 'loginInfo.role': 2 } }, // Only select students
+            // 5. Lookup: Join with User Profile to get student name/contact details
             {
                 $lookup: {
                     from: 'userregs', // Target collection name (Mongoose pluralizes the model name 'UserReg')
@@ -113,7 +127,7 @@ moodRouter.get('/alerts/low-mood', authenticate, authorize([ROLES.COUNSELOR]), a
                     as: 'studentProfile'
                 }
             },
-            // 5. Unwind: Flatten the array created by lookup
+            // 6. Unwind: Flatten the array created by lookup
             { $unwind: '$studentProfile' }
         ]);
 
@@ -121,6 +135,79 @@ moodRouter.get('/alerts/low-mood', authenticate, authorize([ROLES.COUNSELOR]), a
     } catch (error) {
         console.error("Alerts Error:", error);
         res.status(500).json({ success: false, error: true, message: "Error fetching alerts" });
+    }
+});
+
+// =========================================================
+// 4. GET /latest (User/Student Only)
+// =========================================================
+moodRouter.get('/latest', authenticate, authorize([ROLES.USER]), async (req, res) => {
+    try {
+        const latestLog = await MoodLogModel.findOne({ userId: req.user.id })
+            .sort({ loggedAt: -1 });
+        res.status(200).json({ success: true, error: false, data: latestLog });
+    } catch (error) {
+        console.error("Latest Mood Fetch Error:", error);
+        res.status(500).json({ success: false, error: true, message: "Error fetching latest mood" });
+    }
+});
+
+// =========================================================
+// 5. POST /assessment (User/Student Only)
+// =========================================================
+moodRouter.post('/assessment', authenticate, authorize([ROLES.USER]), async (req, res) => {
+    try {
+        const { answers } = req.body;
+        if (!answers || !Array.isArray(answers) || answers.length === 0) {
+            return res.status(400).json({ success: false, error: true, message: "Answers are required." });
+        }
+
+        const score = answers.reduce((sum, val) => sum + Number(val), 0);
+        let level = 'Mild';
+        if (score > 9) {
+            level = 'Severe';
+        } else if (score > 4) {
+            level = 'Moderate';
+        }
+
+        const newAssessment = new AssessmentModel({
+            userId: req.user.id,
+            score,
+            level,
+            answers
+        });
+
+        const saved = await newAssessment.save();
+        res.status(201).json({ success: true, error: false, message: "Stress assessment saved successfully", data: saved });
+    } catch (error) {
+        console.error("Save Assessment Error:", error);
+        res.status(500).json({ success: false, error: true, message: "Error saving stress assessment" });
+    }
+});
+
+// =========================================================
+// 6. GET /assessment/history (User/Student Only)
+// =========================================================
+moodRouter.get('/assessment/history', authenticate, authorize([ROLES.USER]), async (req, res) => {
+    try {
+        const history = await AssessmentModel.find({ userId: req.user.id }).sort({ takenAt: -1 });
+        res.status(200).json({ success: true, error: false, data: history });
+    } catch (error) {
+        console.error("Fetch Assessment History Error:", error);
+        res.status(500).json({ success: false, error: true, message: "Error fetching assessment history" });
+    }
+});
+
+// =========================================================
+// 7. GET /assessment/history/:studentId (Counselor Only)
+// =========================================================
+moodRouter.get('/assessment/history/:studentId', authenticate, authorize([ROLES.COUNSELOR]), async (req, res) => {
+    try {
+        const history = await AssessmentModel.find({ userId: req.params.studentId }).sort({ takenAt: -1 });
+        res.status(200).json({ success: true, error: false, data: history });
+    } catch (error) {
+        console.error("Fetch Student Assessment History Error:", error);
+        res.status(500).json({ success: false, error: true, message: "Error fetching student assessment history" });
     }
 });
 

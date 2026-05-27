@@ -42,7 +42,7 @@ const formatDate = (dateValue) => {
 export default function CounselorDashboard() {
   const router = useRouter();
   const [schedule, setSchedule] = useState([]);
-  // REMOVED: const [alerts, setAlerts] = useState([]);
+  const [alerts, setAlerts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -66,7 +66,12 @@ export default function CounselorDashboard() {
         );
         setSchedule(scheduleResponse.data.data);
 
-        // REMOVED: 2. Fetch low mood alerts
+        // 2. Fetch low mood alerts
+        const alertsResponse = await axios.get(
+          `${process.env.NEXT_PUBLIC_BASE_URI}/mood/alerts/low-mood`,
+          { headers: { Authorization: `Bearer ${token}` } }
+        );
+        setAlerts(alertsResponse.data.data);
       } catch (err) {
         console.error("Counselor Dashboard Error:", err);
         const errorMessage =
@@ -129,7 +134,36 @@ export default function CounselorDashboard() {
           </div>
         </div>
         
-        {/* REMOVED: Low Mood Alerts Section */}
+        {/* ====================== Low Mood Alerts Section ====================== */}
+        <div className={styles.alertsSection}>
+          <h2 className={styles.sectionTitle} style={{ color: "#d32f2f" }}>
+            <AlertCircle size={20} /> Low Mood Alerts ({alerts.length})
+          </h2>
+          {alerts.length === 0 ? (
+            <p className={styles.empty}>No current student alerts.</p>
+          ) : (
+            alerts.map((alert) => (
+              <div key={alert._id} className={styles.alertCard}>
+                <div className={styles.alertHeader}>
+                  <span className={styles.studentName}>{alert.studentProfile?.name || "Student"}</span>
+                  <span style={{ fontSize: "0.8rem", fontWeight: "normal", opacity: 0.8 }}>Sustained Low Mood</span>
+                </div>
+                <p className={styles.alertInfo}>
+                  Avg Mood: <strong>{alert.averageMood?.toFixed(1)}/10</strong>
+                </p>
+                <p className={styles.alertInfo}>
+                  Logs in 2 weeks: <strong>{alert.logCount}</strong>
+                </p>
+                <Link
+                  href={`/counselor/student-profile/${alert.studentProfile?.loginId}`}
+                  className={styles.viewProfileBtn}
+                >
+                  View Profile & Mood History
+                </Link>
+              </div>
+            ))
+          )}
+        </div>
 
         {/* ====================== Upcoming Sessions ====================== */}
         <div className={styles.sessionsSection}> 
@@ -142,7 +176,7 @@ export default function CounselorDashboard() {
             schedule.slice(0, 5).map((session) => (
               <div key={session._id} className={styles.sessionCard}>
                 <p className={styles.sessionTime}>
-                  <Clock size={16} style={{ marginRight: "5px" }} />
+                   <Clock size={16} style={{ marginRight: "5px" }} />
                   {formatDate(session.date)} at {formatTime(session.startTime)}
                 </p>
                 <p className={styles.studentName}>

@@ -19,6 +19,22 @@ const FIXED_SLOTS = [
     { start: "15:00", end: "16:00", display: "03:00 PM" },
 ];
 
+// Utility to format time for display
+const formatTime = (timeString) => {
+  if (!timeString) return "N/A";
+  try {
+    const [hour, minute] = timeString.split(":");
+    let hours = parseInt(hour, 10);
+    const period = hours >= 12 ? "PM" : "AM";
+    hours = hours % 12;
+    hours = hours ? hours : 12;
+    const minutePart = minute || '00'; 
+    return `${hours.toString().padStart(2, "0")}:${minutePart} ${period}`;
+  } catch (e) {
+    return timeString;
+  }
+};
+
 // Utility to filter out past dates
 const isDayAvailable = (date) => {
     const today = new Date();
@@ -33,7 +49,12 @@ export default function SetAvailability() {
     const [isSaving, setIsSaving] = useState(false);
     const [statusMessage, setStatusMessage] = useState(null); // { type: 'success' | 'error', message: string }
     
-    // --- Authentication Check (Client-side) ---
+    // --- New States for Managing Existing Slots ---
+    const [mySlots, setMySlots] = useState([]);
+    const [slotsLoading, setSlotsLoading] = useState(false);
+    const [slotsError, setSlotsError] = useState("");
+
+    // --- Authentication Check & Fetch on Mount ---
     useEffect(() => {
         const userRole = localStorage.getItem('userRole');
         if (Number(userRole) !== 1) {
@@ -42,11 +63,68 @@ export default function SetAvailability() {
             } else {
                 router.replace('/login');
             }
+        } else {
+            fetchMySlots();
         }
     }, [router]);
 
+    const fetchMySlots = async () => {
+        const token = localStorage.getItem('authToken');
+        if (!token) return;
+        setSlotsLoading(true);
+        setSlotsError("");
+        try {
+            const res = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URI}/counselor/availability`, {
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
+            if (res.data.success) {
+                setMySlots(res.data.data);
+            }
+        } catch (err) {
+            console.error("Error fetching my slots:", err);
+            setSlotsError("Failed to fetch slots list.");
+        } finally {
+            setSlotsLoading(false);
+        }
+    };
 
-    // --- Handlers ---
+    const handleToggleSlot = async (slotId) => {
+        const token = localStorage.getItem('authToken');
+        try {
+            const res = await axios.put(`${process.env.NEXT_PUBLIC_BASE_URI}/counselor/availability/toggle/${slotId}`, {}, {
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
+            if (res.data.success) {
+                setMySlots(prev => prev.map(slot => slot._id === slotId ? { ...slot, isAvailable: res.data.data.isAvailable } : slot));
+            }
+        } catch (err) {
+            console.error("Error toggling slot:", err);
+            alert("Failed to update slot status.");
+        }
+    };
+
+    const handleDeleteSlot = async (slotId, isBooked) => {
+        if (isBooked) {
+            const confirmCancel = window.confirm("This slot is already booked by a student. Deleting this slot will cancel the student booking. Are you sure you want to cancel and delete?");
+            if (!confirmCancel) return;
+        } else {
+            const confirmDelete = window.confirm("Are you sure you want to delete this availability slot?");
+            if (!confirmDelete) return;
+        }
+
+        const token = localStorage.getItem('authToken');
+        try {
+            const res = await axios.delete(`${process.env.NEXT_PUBLIC_BASE_URI}/counselor/availability/${slotId}`, {
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
+            if (res.data.success) {
+                setMySlots(prev => prev.filter(slot => slot._id !== slotId));
+            }
+        } catch (err) {
+            console.error("Error deleting slot:", err);
+            alert("Failed to delete slot.");
+        }
+    };
 
     const toggleSlot = (slot) => {
         // Check if slot is already selected
@@ -60,76 +138,75 @@ export default function SetAvailability() {
         }
     };
 
-    // components/SetAvailability/SetAvailability.js (Only the handlePublish function is changed)
-
-const handlePublish = async () => {
-    if (!selectedDate || selectedSlots.length === 0) {
-        setStatusMessage({ type: 'error', message: "Please select a date and at least one time slot." });
-        return;
-    }
-
-    const token = localStorage.getItem('authToken');
-    setIsSaving(true);
-    setStatusMessage(null);
-
-    const publishPromises = selectedSlots.map(slot => {
-        const dateOnly = selectedDate.toISOString().split('T')[0];
-
-        return axios.post(
-            `${process.env.NEXT_PUBLIC_BASE_URI}/counselor/availability/set`,
-            {
-                date: dateOnly,
-                startTime: slot.start,
-                endTime: slot.end
-            },
-            { headers: { 'Authorization': `Bearer ${token}` } }
-        );
-    });
-
-    try {
-        const results = await Promise.allSettled(publishPromises);
-        
-        const successfulCount = results.filter(r => r.status === 'fulfilled' && r.value.data.success).length;
-        const totalAttempts = selectedSlots.length; // Same as results.length
-        
-        // --- REVISED MESSAGE LOGIC START ---
-        let message;
-        let type;
-
-        if (successfulCount > 0 && successfulCount === totalAttempts) {
-            // Case 1: All succeeded
-            message = `${successfulCount} slot(s) published successfully.`;
-            type = 'success';
-        } else if (successfulCount > 0 && successfulCount < totalAttempts) {
-            // Case 2: Some succeeded, some failed (Duplicates)
-            // We only show the successful count to hide the failure detail, as requested
-            message = `${successfulCount} slot(s) published successfully.`; 
-            type = 'success';
-        } else {
-            // Case 3: All failed (Unlikely, but handles critical errors or full failure)
-            message = `Failed to publish any slots. Please try again.`;
-            type = 'error';
+    const handlePublish = async () => {
+        if (!selectedDate || selectedSlots.length === 0) {
+            setStatusMessage({ type: 'error', message: "Please select a date and at least one time slot." });
+            return;
         }
-        // --- REVISED MESSAGE LOGIC END ---
 
-        // Clear selections on success
-        if (successfulCount > 0) {
-            setSelectedSlots([]); 
-            setSelectedDate(null);
-        }
-        
-        setStatusMessage({ 
-            type: type, 
-            message: message 
+        const token = localStorage.getItem('authToken');
+        setIsSaving(true);
+        setStatusMessage(null);
+
+        const publishPromises = selectedSlots.map(slot => {
+            const dateOnly = selectedDate.toISOString().split('T')[0];
+
+            return axios.post(
+                `${process.env.NEXT_PUBLIC_BASE_URI}/counselor/availability/set`,
+                {
+                    date: dateOnly,
+                    startTime: slot.start,
+                    endTime: slot.end
+                },
+                { headers: { 'Authorization': `Bearer ${token}` } }
+            );
         });
 
-    } catch (err) {
-        console.error("Publish Availability Error:", err);
-        setStatusMessage({ type: 'error', message: "A critical error occurred during publishing." });
-    } finally {
-        setIsSaving(false);
-    }
-};
+        try {
+            const results = await Promise.allSettled(publishPromises);
+            
+            const successfulCount = results.filter(r => r.status === 'fulfilled' && r.value.data.success).length;
+            const totalAttempts = selectedSlots.length; // Same as results.length
+            
+            // --- REVISED MESSAGE LOGIC START ---
+            let message;
+            let type;
+
+            if (successfulCount > 0 && successfulCount === totalAttempts) {
+                // Case 1: All succeeded
+                message = `${successfulCount} slot(s) published successfully.`;
+                type = 'success';
+            } else if (successfulCount > 0 && successfulCount < totalAttempts) {
+                // Case 2: Some succeeded, some failed (Duplicates)
+                // We only show the successful count to hide the failure detail, as requested
+                message = `${successfulCount} slot(s) published successfully.`; 
+                type = 'success';
+            } else {
+                // Case 3: All failed (Unlikely, but handles critical errors or full failure)
+                message = `Failed to publish any slots. Please try again.`;
+                type = 'error';
+            }
+            // --- REVISED MESSAGE LOGIC END ---
+
+            // Clear selections on success
+            if (successfulCount > 0) {
+                setSelectedSlots([]); 
+                setSelectedDate(null);
+                fetchMySlots(); // Refresh list after publishing new slots
+            }
+            
+            setStatusMessage({ 
+                type: type, 
+                message: message 
+            });
+
+        } catch (err) {
+            console.error("Publish Availability Error:", err);
+            setStatusMessage({ type: 'error', message: "A critical error occurred during publishing." });
+        } finally {
+            setIsSaving(false);
+        }
+    };
 
     // --- Render Component ---
 
@@ -197,6 +274,91 @@ const handlePublish = async () => {
                 >
                     {isSaving ? "Publishing..." : `Publish ${selectedSlots.length} Slot(s)`}
                 </button>
+            </div>
+
+            {/* Manage Availability Slots Section */}
+            <div className={`${styles.availabilityCard} mt_40`}>
+                <h2 className={styles.sectionTitle} style={{ color: "var(--color2)" }}><CalendarDays size={24} /> Manage Existing Slots</h2>
+                <p className={styles.subtitle}>View, block, or delete your scheduled slots and manage active sessions.</p>
+
+                {slotsLoading && <p>Loading your slots...</p>}
+                {slotsError && <p className={styles.errorText}>{slotsError}</p>}
+
+                {!slotsLoading && mySlots.length === 0 && (
+                    <p className={styles.empty}>You have not added any availability slots yet.</p>
+                )}
+
+                {!slotsLoading && mySlots.length > 0 && (
+                    <div className={styles.manageSlotsContainer}>
+                        <div className={styles.slotsTableWrapper}>
+                            <table className={styles.slotsTable}>
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Time</th>
+                                        <th>Status</th>
+                                        <th>Student / Details</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {mySlots.map((slot) => {
+                                        const dateStr = new Date(slot.date).toLocaleDateString('en-US', {
+                                            weekday: 'short', month: 'short', day: 'numeric', year: 'numeric'
+                                        });
+                                        const displayTime = `${formatTime(slot.startTime)} - ${formatTime(slot.endTime)}`;
+
+                                        return (
+                                            <tr key={slot._id} className={slot.isBooked ? styles.rowBooked : ''}>
+                                                <td className={styles.dateCell}>{dateStr}</td>
+                                                <td>{displayTime}</td>
+                                                <td>
+                                                    {slot.isBooked ? (
+                                                        <span className={`${styles.badge} ${styles.badgeBooked}`}>Booked</span>
+                                                    ) : slot.isAvailable ? (
+                                                        <span className={`${styles.badge} ${styles.badgeAvailable}`}>Available</span>
+                                                    ) : (
+                                                        <span className={`${styles.badge} ${styles.badgeBlocked}`}>Blocked</span>
+                                                    )}
+                                                </td>
+                                                <td>
+                                                    {slot.isBooked ? (
+                                                        <div>
+                                                            <strong>{slot.userId?.name || "Student"}</strong>
+                                                            {slot.userId?.phone && <span className={styles.studentPhone}> ({slot.userId.phone})</span>}
+                                                        </div>
+                                                    ) : (
+                                                        <span className={styles.mutedText}>—</span>
+                                                    )}
+                                                </td>
+                                                <td>
+                                                    <div className={styles.actionButtons}>
+                                                        {!slot.isBooked && (
+                                                            <button
+                                                                onClick={() => handleToggleSlot(slot._id)}
+                                                                className={`${styles.actionBtn} ${slot.isAvailable ? styles.btnBlock : styles.btnUnblock}`}
+                                                                title={slot.isAvailable ? "Block Slot" : "Make Available"}
+                                                            >
+                                                                {slot.isAvailable ? "Block" : "Unblock"}
+                                                            </button>
+                                                        )}
+                                                        <button
+                                                            onClick={() => handleDeleteSlot(slot._id, slot.isBooked)}
+                                                            className={`${styles.actionBtn} ${styles.btnDelete}`}
+                                                            title="Delete Slot"
+                                                        >
+                                                            Delete
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        );
+                                    })}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                )}
             </div>
         </div>
     );

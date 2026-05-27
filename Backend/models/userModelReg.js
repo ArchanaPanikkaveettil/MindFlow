@@ -15,6 +15,7 @@ const userRegSchema = new Schema({
     gender: { type: String, enum: ['Male', 'Female', 'Other'] },
     // --- ADD THIS LINE ---
     classOrGroup: { type: String },
+    counselorNotes: { type: String, default: "" },
     // --- END OF ADDITION ---
 }, { timestamps: true });
 

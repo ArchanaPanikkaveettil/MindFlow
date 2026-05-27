@@ -2,7 +2,7 @@ import BookCounselor from '@/components/BookCounselor/BookCounselor'
 import InnerBanner from '@/components/InnerBanner/InnerBanner'
 import React from 'react'
 
-const bookCounselor = () => {
+const BookCounselorPage = () => {
     return (
         <div>
             <InnerBanner title={'User Dashboard'} />
@@ -11,4 +11,4 @@ const bookCounselor = () => {
     )
 }
 
-export default bookCounselor
+export default BookCounselorPage
