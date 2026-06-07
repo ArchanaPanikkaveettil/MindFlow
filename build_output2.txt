@@ -1,0 +1,764 @@
+﻿
+> mindblow@0.1.0 build
+> next build
+
+Ôû▓ Next.js 16.2.7 (Turbopack)
+- Environments: .env.local
+
+  Running TypeScript ...
+  Finished TypeScript in 450ms ...
+  Creating an optimized production build ...
+node.exe : Turbopack build encountered 27 warnings:
+At line:1 char:1
++ & "C:\Program Files\nodejs/node.exe" "C:\Program Files\nodejs/node_mo ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Turbopack build encountered 27 warnings::String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+./components/Banner/Banner.module.scss
+Issue while running loader
+SassWarning: Deprecation Warning on line 0, column 8 of 
+file:///E:/MCA/Mini_Project/MindFlow-main/Frontend/components/Banner/Banner.module.scss:0:8:
+Sass @import rules are deprecated and will be removed in Dart Sass 3.0.0.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+0 | @import '../../styles/base';
+
+
+components\Banner\Banner.module.scss 1:9  root stylesheet
+
+
+Import traces:
+  Browser:
+    ./components/Banner/Banner.module.scss
+    ./components/Banner/Banner.js
+    ./pages/index.js
+
+  SSR:
+    ./components/Banner/Banner.module.scss
+    ./components/Banner/Banner.js
+    ./pages/index.js
+
+
+./components/Banner/Banner.module.scss
+Issue while running loader
+SassWarning: Deprecation Warning on line 0, column 8 of 
+file:///E:/MCA/Mini_Project/MindFlow-main/Frontend/styles/_base.scss:0:8:
+Sass @import rules are deprecated and will be removed in Dart Sass 3.0.0.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+0 | @import "./mixin";
+
+
+styles\_base.scss 1:9                     @import
+components\Banner\Banner.module.scss 1:9  root stylesheet
+
+
+Import traces:
+  Browser:
+    ./components/Banner/Banner.module.scss
+    ./components/Banner/Banner.js
+    ./pages/index.js
+
+  SSR:
+    ./components/Banner/Banner.module.scss
+    ./components/Banner/Banner.js
+    ./pages/index.js
+
+
+./components/Banner/Banner.module.scss
+Issue while running loader
+SassWarning: Deprecation Warning on line 1, column 8 of 
+file:///E:/MCA/Mini_Project/MindFlow-main/Frontend/styles/_base.scss:1:8:
+Sass @import rules are deprecated and will be removed in Dart Sass 3.0.0.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+1 | @import "./variable";
+
+
+styles\_base.scss 2:9                     @import
+components\Banner\Banner.module.scss 1:9  root stylesheet
+
+
+Import traces:
+  Browser:
+    ./components/Banner/Banner.module.scss
+    ./components/Banner/Banner.js
+    ./pages/index.js
+
+  SSR:
+    ./components/Banner/Banner.module.scss
+    ./components/Banner/Banner.js
+    ./pages/index.js
+
+
+./components/CounselorDashboard/CounselorDashboard.module.scss
+Issue while running loader
+SassWarning: Deprecation Warning on line 0, column 8 of 
+file:///E:/MCA/Mini_Project/MindFlow-main/Frontend/styles/_base.scss:0:8:
+Sass @import rules are deprecated and will be removed in Dart Sass 3.0.0.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+0 | @import "./mixin";
+
+
+styles\_base.scss 1:9                                             @import
+components\CounselorDashboard\CounselorDashboard.module.scss 2:9  root stylesheet
+
+
+Import traces:
+  Browser:
+    ./components/CounselorDashboard/CounselorDashboard.module.scss
+    ./components/CounselorDashboard/CounselorDashboard.js
+    ./pages/counselor-dashboard.js
+
+  SSR:
+    ./components/CounselorDashboard/CounselorDashboard.module.scss
+    ./components/CounselorDashboard/CounselorDashboard.js
+    ./pages/counselor-dashboard.js
+
+
+./components/CounselorDashboard/CounselorDashboard.module.scss
+Issue while running loader
+SassWarning: Deprecation Warning on line 1, column 8 of 
+file:///E:/MCA/Mini_Project/MindFlow-main/Frontend/components/CounselorDashboard/CounselorDashboard.module.scss:1:8:
+Sass @import rules are deprecated and will be removed in Dart Sass 3.0.0.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+1 | @import '../../styles/base';
+
+
+components\CounselorDashboard\CounselorDashboard.module.scss 2:9  root stylesheet
+
+
+Import traces:
+  Browser:
+    ./components/CounselorDashboard/CounselorDashboard.module.scss
+    ./components/CounselorDashboard/CounselorDashboard.js
+    ./pages/counselor-dashboard.js
+
+  SSR:
+    ./components/CounselorDashboard/CounselorDashboard.module.scss
+    ./components/CounselorDashboard/CounselorDashboard.js
+    ./pages/counselor-dashboard.js
+
+
+./components/CounselorDashboard/CounselorDashboard.module.scss
+Issue while running loader
+SassWarning: Deprecation Warning on line 1, column 8 of 
+file:///E:/MCA/Mini_Project/MindFlow-main/Frontend/styles/_base.scss:1:8:
+Sass @import rules are deprecated and will be removed in Dart Sass 3.0.0.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+1 | @import "./variable";
+
+
+styles\_base.scss 2:9                                             @import
+components\CounselorDashboard\CounselorDashboard.module.scss 2:9  root stylesheet
+
+
+Import traces:
+  Browser:
+    ./components/CounselorDashboard/CounselorDashboard.module.scss
+    ./components/CounselorDashboard/CounselorDashboard.js
+    ./pages/counselor-dashboard.js
+
+  SSR:
+    ./components/CounselorDashboard/CounselorDashboard.module.scss
+    ./components/CounselorDashboard/CounselorDashboard.js
+    ./pages/counselor-dashboard.js
+
+
+./components/Header/Header.module.scss
+Issue while running loader
+SassWarning: Deprecation Warning on line 0, column 8 of 
+file:///E:/MCA/Mini_Project/MindFlow-main/Frontend/components/Header/Header.module.scss:0:8:
+Sass @import rules are deprecated and will be removed in Dart Sass 3.0.0.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+0 | @import "@/styles/base";
+
+
+components\Header\Header.module.scss 1:9  root stylesheet
+
+
+Import traces:
+  Browser:
+    ./components/Header/Header.module.scss
+    ./components/Header/Header.js
+    ./components/Layout.js
+    ./pages/_app.js
+
+  SSR:
+    ./components/Header/Header.module.scss
+    ./components/Header/Header.js
+    ./components/Layout.js
+    ./pages/my-bookings.js
+
+
+./components/Header/Header.module.scss
+Issue while running loader
+SassWarning: Deprecation Warning on line 0, column 8 of 
+file:///E:/MCA/Mini_Project/MindFlow-main/Frontend/styles/_base.scss:0:8:
+Sass @import rules are deprecated and will be removed in Dart Sass 3.0.0.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+0 | @import "./mixin";
+
+
+styles\_base.scss 1:9                     @import
+components\Header\Header.module.scss 1:9  root stylesheet
+
+
+Import traces:
+  Browser:
+    ./components/Header/Header.module.scss
+    ./components/Header/Header.js
+    ./components/Layout.js
+    ./pages/_app.js
+
+  SSR:
+    ./components/Header/Header.module.scss
+    ./components/Header/Header.js
+    ./components/Layout.js
+    ./pages/my-bookings.js
+
+
+./components/Header/Header.module.scss
+Issue while running loader
+SassWarning: Deprecation Warning on line 1, column 8 of 
+file:///E:/MCA/Mini_Project/MindFlow-main/Frontend/styles/_base.scss:1:8:
+Sass @import rules are deprecated and will be removed in Dart Sass 3.0.0.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+1 | @import "./variable";
+
+
+styles\_base.scss 2:9                     @import
+components\Header\Header.module.scss 1:9  root stylesheet
+
+
+Import traces:
+  Browser:
+    ./components/Header/Header.module.scss
+    ./components/Header/Header.js
+    ./components/Layout.js
+    ./pages/_app.js
+
+  SSR:
+    ./components/Header/Header.module.scss
+    ./components/Header/Header.js
+    ./components/Layout.js
+    ./pages/my-bookings.js
+
+
+./components/InnerBanner/InnerBanner.module.scss
+Issue while running loader
+SassWarning: Deprecation Warning on line 0, column 8 of 
+file:///E:/MCA/Mini_Project/MindFlow-main/Frontend/components/InnerBanner/InnerBanner.module.scss:0:8:
+Sass @import rules are deprecated and will be removed in Dart Sass 3.0.0.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+0 | @import '../../styles/base';
+
+
+components\InnerBanner\InnerBanner.module.scss 1:9  root stylesheet
+
+
+Import traces:
+  Browser:
+    ./components/InnerBanner/InnerBanner.module.scss
+    ./components/InnerBanner/InnerBanner.js
+    ./pages/counselor/student-profile/[loginId].js
+
+  SSR:
+    ./components/InnerBanner/InnerBanner.module.scss
+    ./components/InnerBanner/InnerBanner.js
+    ./pages/counselor/student-profile/[loginId].js
+
+
+./components/InnerBanner/InnerBanner.module.scss
+Issue while running loader
+SassWarning: Deprecation Warning on line 0, column 8 of 
+file:///E:/MCA/Mini_Project/MindFlow-main/Frontend/styles/_base.scss:0:8:
+Sass @import rules are deprecated and will be removed in Dart Sass 3.0.0.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+0 | @import "./mixin";
+
+
+styles\_base.scss 1:9                               @import
+components\InnerBanner\InnerBanner.module.scss 1:9  root stylesheet
+
+
+Import traces:
+  Browser:
+    ./components/InnerBanner/InnerBanner.module.scss
+    ./components/InnerBanner/InnerBanner.js
+    ./pages/counselor/student-profile/[loginId].js
+
+  SSR:
+    ./components/InnerBanner/InnerBanner.module.scss
+    ./components/InnerBanner/InnerBanner.js
+    ./pages/counselor/student-profile/[loginId].js
+
+
+./components/InnerBanner/InnerBanner.module.scss
+Issue while running loader
+SassWarning: Deprecation Warning on line 1, column 8 of 
+file:///E:/MCA/Mini_Project/MindFlow-main/Frontend/styles/_base.scss:1:8:
+Sass @import rules are deprecated and will be removed in Dart Sass 3.0.0.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+1 | @import "./variable";
+
+
+styles\_base.scss 2:9                               @import
+components\InnerBanner\InnerBanner.module.scss 1:9  root stylesheet
+
+
+Import traces:
+  Browser:
+    ./components/InnerBanner/InnerBanner.module.scss
+    ./components/InnerBanner/InnerBanner.js
+    ./pages/counselor/student-profile/[loginId].js
+
+  SSR:
+    ./components/InnerBanner/InnerBanner.module.scss
+    ./components/InnerBanner/InnerBanner.js
+    ./pages/counselor/student-profile/[loginId].js
+
+
+./components/Login/Login.module.scss
+Issue while running loader
+SassWarning: Deprecation Warning on line 0, column 8 of 
+file:///E:/MCA/Mini_Project/MindFlow-main/Frontend/components/Login/Login.module.scss:0:8:
+Sass @import rules are deprecated and will be removed in Dart Sass 3.0.0.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+0 | @import '../../styles/base';
+
+
+components\Login\Login.module.scss 1:9  root stylesheet
+
+
+Import traces:
+  Browser:
+    ./components/Login/Login.module.scss
+    ./components/Login/Login.js
+    ./pages/login.js
+
+  SSR:
+    ./components/Login/Login.module.scss
+    ./components/Login/Login.js
+    ./pages/login.js
+
+
+./components/Login/Login.module.scss
+Issue while running loader
+SassWarning: Deprecation Warning on line 0, column 8 of 
+file:///E:/MCA/Mini_Project/MindFlow-main/Frontend/styles/_base.scss:0:8:
+Sass @import rules are deprecated and will be removed in Dart Sass 3.0.0.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+0 | @import "./mixin";
+
+
+styles\_base.scss 1:9                   @import
+components\Login\Login.module.scss 1:9  root stylesheet
+
+
+Import traces:
+  Browser:
+    ./components/Login/Login.module.scss
+    ./components/Login/Login.js
+    ./pages/login.js
+
+  SSR:
+    ./components/Login/Login.module.scss
+    ./components/Login/Login.js
+    ./pages/login.js
+
+
+./components/Login/Login.module.scss
+Issue while running loader
+SassWarning: Deprecation Warning on line 1, column 8 of 
+file:///E:/MCA/Mini_Project/MindFlow-main/Frontend/styles/_base.scss:1:8:
+Sass @import rules are deprecated and will be removed in Dart Sass 3.0.0.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+1 | @import "./variable";
+
+
+styles\_base.scss 2:9                   @import
+components\Login\Login.module.scss 1:9  root stylesheet
+
+
+Import traces:
+  Browser:
+    ./components/Login/Login.module.scss
+    ./components/Login/Login.js
+    ./pages/login.js
+
+  SSR:
+    ./components/Login/Login.module.scss
+    ./components/Login/Login.js
+    ./pages/login.js
+
+
+./components/SetAvailability/SetAvailability.module.scss
+Issue while running loader
+SassWarning: Deprecation Warning on line 0, column 8 of 
+file:///E:/MCA/Mini_Project/MindFlow-main/Frontend/styles/_base.scss:0:8:
+Sass @import rules are deprecated and will be removed in Dart Sass 3.0.0.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+0 | @import "./mixin";
+
+
+styles\_base.scss 1:9                                       @import
+components\SetAvailability\SetAvailability.module.scss 2:9  root stylesheet
+
+
+Import traces:
+  Browser:
+    ./components/SetAvailability/SetAvailability.module.scss
+    ./components/SetAvailability/SetAvailability.js
+    ./pages/counselor/set-availability.js
+
+  SSR:
+    ./components/SetAvailability/SetAvailability.module.scss
+    ./components/SetAvailability/SetAvailability.js
+    ./pages/counselor/set-availability.js
+
+
+./components/SetAvailability/SetAvailability.module.scss
+Issue while running loader
+SassWarning: Deprecation Warning on line 1, column 8 of 
+file:///E:/MCA/Mini_Project/MindFlow-main/Frontend/components/SetAvailability/SetAvailability.module.scss:1:8:
+Sass @import rules are deprecated and will be removed in Dart Sass 3.0.0.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+1 | @import '../../styles/base';
+
+
+components\SetAvailability\SetAvailability.module.scss 2:9  root stylesheet
+
+
+Import traces:
+  Browser:
+    ./components/SetAvailability/SetAvailability.module.scss
+    ./components/SetAvailability/SetAvailability.js
+    ./pages/counselor/set-availability.js
+
+  SSR:
+    ./components/SetAvailability/SetAvailability.module.scss
+    ./components/SetAvailability/SetAvailability.js
+    ./pages/counselor/set-availability.js
+
+
+./components/SetAvailability/SetAvailability.module.scss
+Issue while running loader
+SassWarning: Deprecation Warning on line 1, column 8 of 
+file:///E:/MCA/Mini_Project/MindFlow-main/Frontend/styles/_base.scss:1:8:
+Sass @import rules are deprecated and will be removed in Dart Sass 3.0.0.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+1 | @import "./variable";
+
+
+styles\_base.scss 2:9                                       @import
+components\SetAvailability\SetAvailability.module.scss 2:9  root stylesheet
+
+
+Import traces:
+  Browser:
+    ./components/SetAvailability/SetAvailability.module.scss
+    ./components/SetAvailability/SetAvailability.js
+    ./pages/counselor/set-availability.js
+
+  SSR:
+    ./components/SetAvailability/SetAvailability.module.scss
+    ./components/SetAvailability/SetAvailability.js
+    ./pages/counselor/set-availability.js
+
+
+./components/StudentProfile/StudentProfile.module.scss
+Issue while running loader
+SassWarning: Deprecation Warning on line 0, column 8 of 
+file:///E:/MCA/Mini_Project/MindFlow-main/Frontend/styles/_base.scss:0:8:
+Sass @import rules are deprecated and will be removed in Dart Sass 3.0.0.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+0 | @import "./mixin";
+
+
+styles\_base.scss 1:9                                     @import
+components\StudentProfile\StudentProfile.module.scss 2:9  root stylesheet
+
+
+Import traces:
+  Browser:
+    ./components/StudentProfile/StudentProfile.module.scss
+    ./components/StudentProfile/StudentProfile.js
+    ./pages/counselor/student-profile/[loginId].js
+
+  SSR:
+    ./components/StudentProfile/StudentProfile.module.scss
+    ./components/StudentProfile/StudentProfile.js
+    ./pages/counselor/student-profile/[loginId].js
+
+
+./components/StudentProfile/StudentProfile.module.scss
+Issue while running loader
+SassWarning: Deprecation Warning on line 1, column 8 of 
+file:///E:/MCA/Mini_Project/MindFlow-main/Frontend/components/StudentProfile/StudentProfile.module.scss:1:8:
+Sass @import rules are deprecated and will be removed in Dart Sass 3.0.0.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+1 | @import '../../styles/base';
+
+
+components\StudentProfile\StudentProfile.module.scss 2:9  root stylesheet
+
+
+Import traces:
+  Browser:
+    ./components/StudentProfile/StudentProfile.module.scss
+    ./components/StudentProfile/StudentProfile.js
+    ./pages/counselor/student-profile/[loginId].js
+
+  SSR:
+    ./components/StudentProfile/StudentProfile.module.scss
+    ./components/StudentProfile/StudentProfile.js
+    ./pages/counselor/student-profile/[loginId].js
+
+
+./components/StudentProfile/StudentProfile.module.scss
+Issue while running loader
+SassWarning: Deprecation Warning on line 1, column 8 of 
+file:///E:/MCA/Mini_Project/MindFlow-main/Frontend/styles/_base.scss:1:8:
+Sass @import rules are deprecated and will be removed in Dart Sass 3.0.0.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+1 | @import "./variable";
+
+
+styles\_base.scss 2:9                                     @import
+components\StudentProfile\StudentProfile.module.scss 2:9  root stylesheet
+
+
+Import traces:
+  Browser:
+    ./components/StudentProfile/StudentProfile.module.scss
+    ./components/StudentProfile/StudentProfile.js
+    ./pages/counselor/student-profile/[loginId].js
+
+  SSR:
+    ./components/StudentProfile/StudentProfile.module.scss
+    ./components/StudentProfile/StudentProfile.js
+    ./pages/counselor/student-profile/[loginId].js
+
+
+./components/ViewStudents/ViewStudents.module.scss
+Issue while running loader
+SassWarning: Deprecation Warning on line 0, column 8 of 
+file:///E:/MCA/Mini_Project/MindFlow-main/Frontend/styles/_base.scss:0:8:
+Sass @import rules are deprecated and will be removed in Dart Sass 3.0.0.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+0 | @import "./mixin";
+
+
+styles\_base.scss 1:9                                 @import
+components\ViewStudents\ViewStudents.module.scss 2:9  root stylesheet
+
+
+Import traces:
+  Browser:
+    ./components/ViewStudents/ViewStudents.module.scss
+    ./components/ViewStudents/ViewStudents.js
+    ./pages/counselor/students-list.js
+
+  SSR:
+    ./components/ViewStudents/ViewStudents.module.scss
+    ./components/ViewStudents/ViewStudents.js
+    ./pages/counselor/students-list.js
+
+
+./components/ViewStudents/ViewStudents.module.scss
+Issue while running loader
+SassWarning: Deprecation Warning on line 1, column 8 of 
+file:///E:/MCA/Mini_Project/MindFlow-main/Frontend/components/ViewStudents/ViewStudents.module.scss:1:8:
+Sass @import rules are deprecated and will be removed in Dart Sass 3.0.0.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+1 | @import '../../styles/base';
+
+
+components\ViewStudents\ViewStudents.module.scss 2:9  root stylesheet
+
+
+Import traces:
+  Browser:
+    ./components/ViewStudents/ViewStudents.module.scss
+    ./components/ViewStudents/ViewStudents.js
+    ./pages/counselor/students-list.js
+
+  SSR:
+    ./components/ViewStudents/ViewStudents.module.scss
+    ./components/ViewStudents/ViewStudents.js
+    ./pages/counselor/students-list.js
+
+
+./components/ViewStudents/ViewStudents.module.scss
+Issue while running loader
+SassWarning: Deprecation Warning on line 1, column 8 of 
+file:///E:/MCA/Mini_Project/MindFlow-main/Frontend/styles/_base.scss:1:8:
+Sass @import rules are deprecated and will be removed in Dart Sass 3.0.0.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+1 | @import "./variable";
+
+
+styles\_base.scss 2:9                                 @import
+components\ViewStudents\ViewStudents.module.scss 2:9  root stylesheet
+
+
+Import traces:
+  Browser:
+    ./components/ViewStudents/ViewStudents.module.scss
+    ./components/ViewStudents/ViewStudents.js
+    ./pages/counselor/students-list.js
+
+  SSR:
+    ./components/ViewStudents/ViewStudents.module.scss
+    ./components/ViewStudents/ViewStudents.js
+    ./pages/counselor/students-list.js
+
+
+./styles/common.scss
+Issue while running loader
+SassWarning: Deprecation Warning on line 0, column 8 of 
+file:///E:/MCA/Mini_Project/MindFlow-main/Frontend/styles/_base.scss:0:8:
+Sass @import rules are deprecated and will be removed in Dart Sass 3.0.0.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+0 | @import "./mixin";
+
+
+styles\_base.scss 1:9   @import
+styles\common.scss 1:9  root stylesheet
+
+
+
+./styles/common.scss
+Issue while running loader
+SassWarning: Deprecation Warning on line 0, column 8 of 
+file:///E:/MCA/Mini_Project/MindFlow-main/Frontend/styles/common.scss:0:8:
+Sass @import rules are deprecated and will be removed in Dart Sass 3.0.0.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+0 | @import './base';
+
+
+styles\common.scss 1:9  root stylesheet
+
+
+
+./styles/common.scss
+Issue while running loader
+SassWarning: Deprecation Warning on line 1, column 8 of 
+file:///E:/MCA/Mini_Project/MindFlow-main/Frontend/styles/_base.scss:1:8:
+Sass @import rules are deprecated and will be removed in Dart Sass 3.0.0.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+1 | @import "./variable";
+
+
+styles\_base.scss 2:9   @import
+styles\common.scss 1:9  root stylesheet
+
+
+
+
+> Build error occurred
+Error: Turbopack build failed with 1 errors:
+./components/Header/Header.module.scss
+Error evaluating Node.js code
+Error: Can't find stylesheet to import.
+  ÔòÀ
+1 Ôöé @import "./mixin";
+  Ôöé         ^^^^^^^^^
+  ÔòÁ
+  styles\_base.scss 1:9                     @import
+  components\Header\Header.module.scss 1:9  root stylesheet
+  (from 
+E:\MCA\Mini_Project\MindFlow-main\Frontend\node_modules\next\dist\build\webpack\loaders\resolve-url-loader\index.js, 
+E:\MCA\Mini_Project\MindFlow-main\Frontend\node_modules\next\dist\compiled\sass-loader\cjs.js)
+Caused by: Error: Can't find stylesheet to import.
+  ÔòÀ
+1 Ôöé @import "./mixin";
+  Ôöé         ^^^^^^^^^
+  ÔòÁ
+  styles\_base.scss 1:9                     @import
+  components\Header\Header.module.scss 1:9  root stylesheet
+    [at Object.wrapException (E:\MCA\Mini_Project\MindFlow-main\Frontend\node_modules\sass\sass.dart.js:2292:47)]
+    [at E:\MCA\Mini_Project\MindFlow-main\Frontend\node_modules\sass\sass.dart.js:87606:25]
+    [at _wrapJsFunctionForAsync_closure.$protected 
+(E:\MCA\Mini_Project\MindFlow-main\Frontend\node_modules\sass\sass.dart.js:4960:15)]
+    [at _wrapJsFunctionForAsync_closure.call$2 
+(E:\MCA\Mini_Project\MindFlow-main\Frontend\node_modules\sass\sass.dart.js:37968:12)]
+    [at _awaitOnObject_closure.call$1 
+(E:\MCA\Mini_Project\MindFlow-main\Frontend\node_modules\sass\sass.dart.js:37956:32)]
+    [at Object._rootRunUnary (E:\MCA\Mini_Project\MindFlow-main\Frontend\node_modules\sass\sass.dart.js:5378:18)]
+    [at StaticClosure.<anonymous> 
+(E:\MCA\Mini_Project\MindFlow-main\Frontend\node_modules\sass\sass.dart.js:124712:16)]
+    [at _CustomZone.runUnary$2$2 (E:\MCA\Mini_Project\MindFlow-main\Frontend\node_modules\sass\sass.dart.js:39399:39)]
+    [at _Future__propagateToListeners_handleValueCallback.call$0 
+(E:\MCA\Mini_Project\MindFlow-main\Frontend\node_modules\sass\sass.dart.js:38457:51)]
+    [at Object._Future__propagateToListeners 
+(E:\MCA\Mini_Project\MindFlow-main\Frontend\node_modules\sass\sass.dart.js:5170:93)]
+
+Import traces:
+  Browser:
+    ./components/Header/Header.module.scss
+    ./components/Header/Header.js
+    ./components/Layout.js
+    ./pages/_app.js
+
+  SSR:
+    ./components/Header/Header.module.scss
+    ./components/Header/Header.js
+    ./components/Layout.js
+    ./pages/my-bookings.js
+
+
+    at ignore-listed frames

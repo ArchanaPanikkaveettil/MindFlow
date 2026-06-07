@@ -1,5 +1,5 @@
 // components/SetAvailability/SetAvailability.module.scss
-@import '/styles/base';
+@import '../../styles/base';
 
 .availabilityCard {
     max-width: 900px;
@@ -53,35 +53,32 @@
     border: none !important;
     background-color: transparent !important;
     
-    :global {
-        .react-datepicker {
-            &__day-name, &__day {
-                color: var(--color4);
-                font-size: 16px;
-            }
-
-            &__month-container {
-                width: 100%;
-                float: unset;
-            }
-
-            &__day:not([aria-disabled=true]):hover {
-                border-radius: 50%;
-                background-color: rgba(164, 133, 226, 0.2);
-            }
-
-            &__day--selected {
-                border-radius: 50%;
-                background-color: var(--color2) !important;
-                color: white !important;
-            }
-
-            &__header {
-                background-color: transparent;
-                border-bottom: 1px solid rgba(164, 133, 226, 0.2);
-            }
-        }
+    :global(.react-datepicker__day-name), :global(.react-datepicker__day) {
+        color: var(--color4);
+        font-size: 16px;
     }
+
+    :global(.react-datepicker__month-container) {
+        width: 100%;
+        float: unset;
+    }
+
+    :global(.react-datepicker__day:not([aria-disabled=true]):hover) {
+        border-radius: 50%;
+        background-color: rgba(164, 133, 226, 0.2);
+    }
+
+    :global(.react-datepicker__day--selected) {
+        border-radius: 50%;
+        background-color: var(--color2) !important;
+        color: white !important;
+    }
+
+    :global(.react-datepicker__header) {
+        background-color: transparent;
+        border-bottom: 1px solid rgba(164, 133, 226, 0.2);
+    }
+
 }
 
 .timeSlotsGrid {

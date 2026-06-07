@@ -148,28 +148,26 @@
   max-width: 350px; 
 
   // You can override specific react-datepicker classes here if needed
-  :global {
-    .react-datepicker__header {
-      background-color: rgba(191, 162, 219, 0.1);
-      border-bottom: 1px solid rgba(191, 162, 219, 0.3);
-    }
-    .react-datepicker__day--selected {
-      background-color: var(--color1); 
-    }
-     .react-datepicker__day:hover {
-       background-color: rgba(164, 133, 226, 0.2); // Hover effect
-       border-radius: 50%;
-     }
-     .react-datepicker__current-month {
-       color: var(--color4); // Month name color
-     }
-     .react-datepicker__day-name, .react-datepicker__day {
-        color: var(--color4); // Day names and numbers color
-     }
-     .react-datepicker__day--disabled {
-        color: #ccc;
-        opacity: 0.6;
-     }
+  :global(.react-datepicker__header) {
+    background-color: rgba(191, 162, 219, 0.1);
+    border-bottom: 1px solid rgba(191, 162, 219, 0.3);
+  }
+  :global(.react-datepicker__day--selected) {
+    background-color: var(--color1);
+  }
+  :global(.react-datepicker__day:hover) {
+    background-color: rgba(164, 133, 226, 0.2);
+    border-radius: 50%;
+  }
+  :global(.react-datepicker__current-month) {
+    color: var(--color4);
+  }
+  :global(.react-datepicker__day-name), :global(.react-datepicker__day) {
+    color: var(--color4);
+  }
+  :global(.react-datepicker__day--disabled) {
+    color: #ccc;
+    opacity: 0.6;
   }
 }
 
