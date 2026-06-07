@@ -10,6 +10,7 @@
   "dependencies": {
     "aos": "^2.3.4",
     "axios": "^1.12.2",
+    "cors": "^2.8.6",
     "date-fns": "^4.1.0",
     "locomotive-scroll": "^4.1.4",
     "lucide-react": "^0.544.0",

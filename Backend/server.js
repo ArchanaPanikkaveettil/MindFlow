@@ -20,21 +20,25 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // CORS setup
-const ALLOWED_ORIGIN = process.env.FRONTEND_URL || '*';
+console.log("FRONTEND_URL =", JSON.stringify(process.env.FRONTEND_URL));
+
 app.use((req, res, next) => {
-    res.setHeader("Access-Control-Allow-Origin", ALLOWED_ORIGIN);
-    res.setHeader(
+    const origin = process.env.FRONTEND_URL?.trim() || "*";
+
+    res.header("Access-Control-Allow-Origin", origin);
+    res.header(
         "Access-Control-Allow-Headers",
         "Origin, X-Requested-With, Content-Type, Accept, Authorization"
     );
-    res.setHeader(
+    res.header(
         "Access-Control-Allow-Methods",
-        "GET, POST, PATCH, PUT, DELETE, OPTIONS"
+        "GET, POST, PUT, PATCH, DELETE, OPTIONS"
     );
-    // Allow the preflight request to pass through
-    if (req.method === 'OPTIONS') {
+
+    if (req.method === "OPTIONS") {
         return res.sendStatus(200);
     }
+
     next();
 });
 
